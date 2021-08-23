@@ -23,8 +23,6 @@ public class JavaToAST {
     	astParser.setBindingsRecovery(true);
     	
     	CompilationUnit cu = (CompilationUnit) astParser.createAST(null);
-    	System.out.println(cu.toString());
-    	
     	return cu;
 	}
 }
