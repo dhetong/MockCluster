@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import org.eclipse.jdt.core.dom.Statement;
 
+import handler.ThenPatternHandler;
+
 public class StatementFilter {
 	public void stmFilter(Statement s) {
 		if(s.getNodeType() == Statement.EXPRESSION_STATEMENT) {
@@ -14,6 +16,8 @@ public class StatementFilter {
 				if(s.toString().contains("doReturn")) {
 				}
 				else if(s.toString().contains("thenReturn")) {
+					ThenPatternHandler thenhandler = new ThenPatternHandler();
+					s.accept(thenhandler);
 				}
 			}
 		}

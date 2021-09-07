@@ -22,6 +22,8 @@ public class MethodVisitor extends ASTVisitor {
 	}
 	
 	public boolean visit(MethodDeclaration node) {
+		patternSearch(node);
+		
 		return super.visit(node);
 	}
 }
