@@ -37,36 +37,65 @@ public class ThenPatternHandler extends ASTVisitor {
 		List whenargs = whenNode.arguments();
 		
 		ReturnFilter(returnargs);
+		//WhenFilter(whenargs, node);
 	}
 	
-	private void ReturnFilter(List returnargs) {
+	private boolean ReturnFilter(List returnargs) {
 		if(returnargs.size() > 1) {
+			return false;
 		}
 		else {
 			if(returnargs.get(0) instanceof StringLiteral) {
+				//no need
 			}
 			else if(returnargs.get(0) instanceof SimpleName) {
+				//check & tracking
 			}
 			else if(returnargs.get(0) instanceof BooleanLiteral) {
+				//no need
 			}
 			else if(returnargs.get(0) instanceof NumberLiteral) {
+				//no need
 			}
 			else if(returnargs.get(0) instanceof MethodInvocation) {
+				//check and tracking
 			}
 			else if(returnargs.get(0) instanceof QualifiedName) {
+				//no need
 			}
 			else if(returnargs.get(0) instanceof ArrayCreation) {
+				//no need, temporary
 			}
 			else if(returnargs.get(0) instanceof CastExpression) {
+				//no need, temporary
 			}
 			else if(returnargs.get(0) instanceof NullLiteral) {
+				//no need
 			}
 			else if(returnargs.get(0) instanceof ClassInstanceCreation) {
+				//no need
 			}
 			else if(returnargs.get(0) instanceof TypeLiteral) {
+				//no need
 			}
 			else {
 			}
 		}
+		return true;
+	}
+	
+	private boolean WhenFilter(List whenargs, MethodInvocation node) {
+		if(whenargs.size() > 1) {
+			return false;
+		}
+		else {
+			if(whenargs.get(0) instanceof MethodInvocation) {
+				MethodInvocation invokedMethod = (MethodInvocation) whenargs.get(0);
+			}
+			else {
+				//when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException("E1")).thenReturn(secondTry)
+			}
+		}
+		return true;
 	}
 }
