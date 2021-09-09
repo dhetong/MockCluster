@@ -7,6 +7,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import handler.FieldVisitor;
 import handler.MethodVisitor;
 
 public class Main {		
@@ -21,6 +22,12 @@ public class Main {
 			
 			MethodVisitor mvisitor = new MethodVisitor();
 			cunit.accept(mvisitor);
+			
+			List<MockInfo> mockinfolist = mvisitor.getMockInfoList();
+
+			//find no mock and when statement in field(Cayenne) 
+//			FieldVisitor fvisitor = new FieldVisitor();
+//			cunit.accept(fvisitor);
 		}
 	}
 }

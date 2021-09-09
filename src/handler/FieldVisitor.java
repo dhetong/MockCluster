@@ -7,15 +7,22 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 
 public class FieldVisitor extends ASTVisitor {
-	public void patternSearch(FieldDeclaration node) {
+	public void patternSearch(FieldDeclaration node) {		
 		Pattern PatternWhen = Pattern.compile("when\\(([^}]*)\\)\\.");
-		Matcher matcher = PatternWhen.matcher(node.toString());
-		if(matcher.find()) {
-			
+		Matcher MatcherWhen = PatternWhen.matcher(node.toString());
+		if(MatcherWhen.find()) {
+			//find no when statement in field(Cayenne)
+		}
+		
+		Pattern PatternMock = Pattern.compile("mock\\(");
+		Matcher MatcherMock = PatternMock.matcher(node.toString());
+		if(MatcherMock.find()) {
+			//find no mock statement in field(Cayenne)
 		}
 	}
 	
 	public boolean visit(FieldDeclaration node) {
+		patternSearch(node);
 		return super.visit(node);
 	}
 }

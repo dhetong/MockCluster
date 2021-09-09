@@ -8,6 +8,8 @@ public class MockInfo {
 	
 	private String field_name;
 	
+	private int link_index = -1;
+	
 	public MockInfo(String content, int type, String object, String method) {
 		return_content = content;
 		return_type = type;
@@ -17,6 +19,10 @@ public class MockInfo {
 	
 	public void initField(String field) {
 		field_name = field;
+	}
+	
+	public void linkIndex(int index) {
+		link_index = index;
 	}
 	
 	public String getContent() {
