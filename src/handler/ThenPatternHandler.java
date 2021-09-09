@@ -15,11 +15,15 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TypeLiteral;
 
+import com.MockInfo;
+
 public class ThenPatternHandler extends ASTVisitor {
 	private String return_content;
 	private int return_type;
 	private String mock_object;
 	private String invoked_method;
+	
+	private MockInfo mockinfo = null;
 	
 	public boolean visit(MethodInvocation node) {
 		if(node.getName().toString().equals("when")) {
@@ -41,8 +45,11 @@ public class ThenPatternHandler extends ASTVisitor {
 		List returnargs = returnNode.arguments();
 		List whenargs = whenNode.arguments();
 		
-		//ReturnFilter(returnargs);
+		ReturnFilter(returnargs);
 		WhenFilter(whenargs, node);
+		
+		if(ReturnFilter(returnargs) && WhenFilter(whenargs, node))
+			mockinfo = new MockInfo(return_content, return_type, mock_object, invoked_method);
 	}
 	
 	private boolean ReturnFilter(List returnargs) {
@@ -127,5 +134,9 @@ public class ThenPatternHandler extends ASTVisitor {
 			}
 		}
 		return true;
+	}
+	
+	public MockInfo getMockInfo() {
+		return mockinfo;
 	}
 }

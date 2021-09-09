@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import handler.ThenPatternHandler;
 
 public class StatementFilter {
-	public void stmFilter(Statement s) {
+	public MockInfo stmFilter(Statement s) {
 		if(s.getNodeType() == Statement.EXPRESSION_STATEMENT) {
 			Pattern PatternWhen = Pattern.compile("when\\(([^}]*)\\)\\.");
 			Matcher matcher = PatternWhen.matcher(s.toString());
@@ -18,8 +18,11 @@ public class StatementFilter {
 				else if(s.toString().contains("thenReturn")) {
 					ThenPatternHandler thenhandler = new ThenPatternHandler();
 					s.accept(thenhandler);
+					
+					return thenhandler.getMockInfo();
 				}
 			}
 		}
+		return null;
 	}
 }
