@@ -24,6 +24,7 @@ public class Main {
 			cunit.accept(mvisitor);
 			
 			List<MockInfo> mockinfolist = mvisitor.getMockInfoList();
+			List<MockInitInfo> mockinitinfolist = mvisitor.getMockInitInfoList();
 
 			//find no mock and when statement in field(Cayenne) 
 //			FieldVisitor fvisitor = new FieldVisitor();
