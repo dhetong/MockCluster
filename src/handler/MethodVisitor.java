@@ -31,11 +31,8 @@ public class MethodVisitor extends ASTVisitor {
 //			}
 			
 			MockInitInfo mockinitinfo = filter.mockstmFilter(s);
-			if(mockinitinfo != null) {
-				System.out.println(mockinitinfo.getName());
-				System.out.println(mockinitinfo.getClassName());
-				mockinitinfolist.add(mockinitinfo);
-			}
+//			if(mockinitinfo != null)
+//				mockinitinfolist.add(mockinitinfo);
 		}
 	}
 	

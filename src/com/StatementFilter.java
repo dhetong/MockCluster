@@ -3,12 +3,16 @@ package com;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.jdt.core.dom.Assignment;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.Type;
 
+import handler.AssignmentVisitor;
 import handler.ThenPatternHandler;
 
 public class StatementFilter {
@@ -32,19 +36,25 @@ public class StatementFilter {
 	
 	public MockInitInfo mockstmFilter(Statement s) {
 		if(s.getNodeType() == Statement.VARIABLE_DECLARATION_STATEMENT) {
-			Pattern PatternMock = Pattern.compile("mock\\(");
-			Matcher matcher = PatternMock.matcher(s.toString());
-			if(matcher.find()) {
-				Type class_type = (Type) ((VariableDeclarationStatement) s).getType();
-				
-				MockInitInfo mockinitinfo = TypeFilter(class_type, s);
-				return mockinitinfo;
-			}
+//			Pattern PatternMock = Pattern.compile("mock\\(");
+//			Matcher matcher = PatternMock.matcher(s.toString());
+//			if(matcher.find()) {
+//				Type class_type = (Type) ((VariableDeclarationStatement) s).getType();
+//				
+//				MockInitInfo mockinitinfo = TypeFilter(class_type, s);
+//				return mockinitinfo;
+//			}
 		}
 		else if(s.getNodeType() == Statement.EXPRESSION_STATEMENT) {
 			Pattern PatternMock = Pattern.compile("mock\\(");
 			Matcher matcher = PatternMock.matcher(s.toString());
 			if(matcher.find()) {
+				if(s.toString().contains("when(")) {
+				}
+				else {
+					AssignmentVisitor assginmentvisitor = new AssignmentVisitor();
+					s.accept(assginmentvisitor);
+				}
 			}
 		}
 		return null;
