@@ -1,6 +1,8 @@
 package com;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
@@ -27,7 +29,10 @@ public class Main {
 			List<MockInitInfo> mockinitinfolist = mvisitor.getMockInitInfoList();
 			
 			LinkObject linker = new LinkObject();
-			linker.InitToWhen(mockinfolist, mockinitinfolist);
+			
+			List<LinkedList> mocklinkset = linker.InitToWhen(mockinfolist, mockinitinfolist);
+			if(!mocklinkset.isEmpty())
+				System.out.println("find");
 
 			//find no mock and when statement in field(Cayenne) 
 //			FieldVisitor fvisitor = new FieldVisitor();

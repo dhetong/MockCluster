@@ -1,6 +1,6 @@
 package com;
 
-public class MockInitInfo {
+public class MockInitInfo extends Info {
 	private String mock_object_name;
 	private String mock_class;
 	
@@ -9,6 +9,7 @@ public class MockInitInfo {
 	public MockInitInfo(String object_name, String object_class) {
 		mock_object_name = object_name;
 		mock_class = object_class;
+		initInfoType(InfoType.MOCK_INIT_INFO);
 	}
 	
 	public String getName() {

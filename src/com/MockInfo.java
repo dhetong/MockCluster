@@ -1,6 +1,6 @@
 package com;
 
-public class MockInfo {
+public class MockInfo extends Info {
 	private String return_content;
 	private int return_type;
 	private String mock_object;
@@ -15,6 +15,7 @@ public class MockInfo {
 		return_type = type;
 		mock_object = object;
 		invoked_method = method;
+		initInfoType(InfoType.MOCK_WHEN_INFO);
 	}
 	
 	public void initField(String field) {
