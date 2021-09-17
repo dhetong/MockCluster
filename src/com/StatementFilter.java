@@ -36,14 +36,14 @@ public class StatementFilter {
 	
 	public MockInitInfo mockstmFilter(Statement s) {
 		if(s.getNodeType() == Statement.VARIABLE_DECLARATION_STATEMENT) {
-//			Pattern PatternMock = Pattern.compile("mock\\(");
-//			Matcher matcher = PatternMock.matcher(s.toString());
-//			if(matcher.find()) {
-//				Type class_type = (Type) ((VariableDeclarationStatement) s).getType();
-//				
-//				MockInitInfo mockinitinfo = TypeFilter(class_type, s);
-//				return mockinitinfo;
-//			}
+			Pattern PatternMock = Pattern.compile("mock\\(");
+			Matcher matcher = PatternMock.matcher(s.toString());
+			if(matcher.find()) {
+				Type class_type = (Type) ((VariableDeclarationStatement) s).getType();
+				
+				MockInitInfo mockinitinfo = TypeFilter(class_type, s);
+				return mockinitinfo;
+			}
 		}
 		else if(s.getNodeType() == Statement.EXPRESSION_STATEMENT) {
 			Pattern PatternMock = Pattern.compile("mock\\(");
@@ -54,6 +54,12 @@ public class StatementFilter {
 				else {
 					AssignmentVisitor assginmentvisitor = new AssignmentVisitor();
 					s.accept(assginmentvisitor);
+					
+					if(assginmentvisitor.isNull() == true) {
+						MockInitInfo mockinitinfo = new MockInitInfo(assginmentvisitor.getName(), 
+								assginmentvisitor.getClassName());
+						return mockinitinfo;
+					}
 				}
 			}
 		}

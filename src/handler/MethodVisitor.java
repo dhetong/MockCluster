@@ -23,16 +23,18 @@ public class MethodVisitor extends ASTVisitor {
 			return;
 		
 		for(Statement s : (List<Statement>) body.statements()) {
-//			MockInfo mockinfo = filter.whenstmFilter(s);
-//			
-//			if(mockinfo != null) {
-//				mockinfo.initField(node.getName().toString());
-//				mockinfolist.add(mockinfo);
-//			}
+			MockInfo mockinfo = filter.whenstmFilter(s);
+			
+			if(mockinfo != null) {
+				mockinfo.initField(node.getName().toString());
+				mockinfolist.add(mockinfo);
+			}
 			
 			MockInitInfo mockinitinfo = filter.mockstmFilter(s);
-//			if(mockinitinfo != null)
-//				mockinitinfolist.add(mockinitinfo);
+			if(mockinitinfo != null) {
+				mockinitinfo.initField(node.getName().toString());
+				mockinitinfolist.add(mockinitinfo);
+			}
 		}
 	}
 	

@@ -25,6 +25,9 @@ public class Main {
 			
 			List<MockInfo> mockinfolist = mvisitor.getMockInfoList();
 			List<MockInitInfo> mockinitinfolist = mvisitor.getMockInitInfoList();
+			
+			LinkObject linker = new LinkObject();
+			linker.InitToWhen(mockinfolist, mockinitinfolist);
 
 			//find no mock and when statement in field(Cayenne) 
 //			FieldVisitor fvisitor = new FieldVisitor();

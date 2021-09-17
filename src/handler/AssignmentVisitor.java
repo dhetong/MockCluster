@@ -9,8 +9,8 @@ import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.TypeLiteral;
 
 public class AssignmentVisitor extends ASTVisitor {
-	private String mock_object;
-	private String mock_class;
+	private String mock_object = null;
+	private String mock_class = null;
 	
 	public boolean visit(Assignment node) {
 		if(node.getLeftHandSide() instanceof SimpleName) {
@@ -46,5 +46,20 @@ public class AssignmentVisitor extends ASTVisitor {
 			}
 		}
 		return false;
+	}
+	
+	public String getName() {
+		return mock_object;
+	}
+	
+	public String getClassName() {
+		return mock_class;
+	}
+	
+	public boolean isNull() {
+		if(mock_object == null || mock_class == null)
+			return false;
+		else
+			return true;
 	}
 }
