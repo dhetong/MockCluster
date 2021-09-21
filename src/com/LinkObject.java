@@ -56,12 +56,14 @@ public class LinkObject {
 					mockinfo.getType() == ReturnType.ARRAY_CREATION_TYPE ||
 					mockinfo.getType() == ReturnType.CAST_EXPRESSION_TYPE) {
 				//cast expression and array creation type need no check in cayenne
-				mockinfo.initReturnMock(false);
+				((MockInfo) patternlist.get(tail)).initReturnMock(false); //return object is not a mock object
 			}
 			else if(mockinfo.getType() == ReturnType.SIMPLE_NAME_TYPE) {
 				//identify whether when pattern using mock object as return value
 				String content = mockinfo.getContent();
 				String field = mockinfo.getField();
+				boolean flag = false; //mark whether the return object can match a mock object
+				
 				for(int index_init = 0;index_init < mockinitinfolist.size();index_init++) {
 					String mock_name = mockinitinfolist.get(index_init).getName();
 					String mock_field = mockinitinfolist.get(index_init).getField();
@@ -70,9 +72,18 @@ public class LinkObject {
 					if(!mock_name.equals(content))
 						continue;
 					
-					patternlist.add(mockinitinfolist.get(index_init));
+					patternlist.add(mockinitinfolist.get(index_init)); //add return info to pattern list
+					((MockInfo) patternlist.get(tail)).initReturnMock(true); //return object is a mock object
+					flag = true;
 					break;
 				}
+				
+				if(flag == false)
+					((MockInfo) patternlist.get(tail)).initReturnMock(false);//return object is not a mock object
+			}
+			else if(mockinfo.getType() == ReturnType.METHOD_TYPE) {
+				//temporary, code after finishing SIMPLE_NAME_TYPE
+				((MockInfo) patternlist.get(tail)).initReturnMock(false);
 			}
 		}
 	}
