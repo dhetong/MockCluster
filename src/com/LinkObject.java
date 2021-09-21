@@ -38,7 +38,7 @@ public class LinkObject {
 	}
 	
 	//identify when pattern using simple value as return value
-	public void SimpleValueFilter(List<LinkedList> mocklinkset) {
+	public void ReturnValueFilter(List<LinkedList> mocklinkset, List<MockInitInfo> mockinitinfolist) {
 		for(int index = 0;index < mocklinkset.size();index++) {
 			LinkedList<Info> patternlist = mocklinkset.get(index);
 			int tail = patternlist.size();
@@ -57,6 +57,22 @@ public class LinkObject {
 					mockinfo.getType() == ReturnType.CAST_EXPRESSION_TYPE) {
 				//cast expression and array creation type need no check in cayenne
 				mockinfo.initReturnMock(false);
+			}
+			else if(mockinfo.getType() == ReturnType.SIMPLE_NAME_TYPE) {
+				//identify whether when pattern using mock object as return value
+				String content = mockinfo.getContent();
+				String field = mockinfo.getField();
+				for(int index_init = 0;index_init < mockinitinfolist.size();index_init++) {
+					String mock_name = mockinitinfolist.get(index_init).getName();
+					String mock_field = mockinitinfolist.get(index_init).getField();
+					if(!mock_field.equals(field))
+						continue;
+					if(!mock_name.equals(content))
+						continue;
+					
+					patternlist.add(mockinitinfolist.get(index_init));
+					break;
+				}
 			}
 		}
 	}
