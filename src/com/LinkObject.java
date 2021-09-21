@@ -40,6 +40,24 @@ public class LinkObject {
 	//identify when pattern using simple value as return value
 	public void SimpleValueFilter(List<LinkedList> mocklinkset) {
 		for(int index = 0;index < mocklinkset.size();index++) {
+			LinkedList<Info> patternlist = mocklinkset.get(index);
+			int tail = patternlist.size();
+			if(patternlist.get(tail) instanceof MockInitInfo)
+				continue;
+			MockInfo mockinfo = (MockInfo) patternlist.get(tail);
+			
+			if(mockinfo.getType() == ReturnType.STR_TYPE ||
+					mockinfo.getType() == ReturnType.BOOLEAN_TYPE ||
+					mockinfo.getType() == ReturnType.NUM_TYPE ||
+					mockinfo.getType() == ReturnType.QUALIFIED_NAME_TYPE ||
+					mockinfo.getType() == ReturnType.NULL_TYPE ||
+					mockinfo.getType() == ReturnType.CLASS_INSTANCE_CREATION_TYPE ||
+					mockinfo.getType() == ReturnType.TYPE_LITERAL_TYPE ||
+					mockinfo.getType() == ReturnType.ARRAY_CREATION_TYPE ||
+					mockinfo.getType() == ReturnType.CAST_EXPRESSION_TYPE) {
+				//cast expression and array creation type need no check in cayenne
+				mockinfo.initReturnMock(false);
+			}
 		}
 	}
 	
