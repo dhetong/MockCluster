@@ -8,7 +8,7 @@ public class MockInfo extends Info {
 	
 	private String field_name;
 	
-	private int link_index = -1;
+	private boolean isReturnMock; //whether the return argument is a mock object
 	
 	public MockInfo(String content, int type, String object, String method) {
 		return_content = content;
@@ -20,10 +20,6 @@ public class MockInfo extends Info {
 	
 	public void initField(String field) {
 		field_name = field;
-	}
-	
-	public void linkIndex(int index) {
-		link_index = index;
 	}
 	
 	public String getContent() {
@@ -44,5 +40,13 @@ public class MockInfo extends Info {
 	
 	public String getField() {
 		return field_name;
+	}
+	
+	public void initReturnMock(boolean ismock) {
+		isReturnMock = ismock;
+	}
+	
+	public boolean isReturnMock() {
+		return isReturnMock;
 	}
 }

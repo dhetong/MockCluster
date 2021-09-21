@@ -6,6 +6,8 @@ public class MockInitInfo extends Info {
 	
 	private String field_name;
 	
+	private boolean hasWhen = false; //whether a mock object has related when patterns
+	
 	public MockInitInfo(String object_name, String object_class) {
 		mock_object_name = object_name;
 		mock_class = object_class;
@@ -26,5 +28,13 @@ public class MockInitInfo extends Info {
 	
 	public String getField() {
 		return field_name;
+	}
+	
+	public void initHasWhen(boolean haswhen) {
+		hasWhen = haswhen;
+	}
+	
+	public boolean hasWhen() {
+		return hasWhen;
 	}
 }

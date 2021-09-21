@@ -31,8 +31,7 @@ public class Main {
 			LinkObject linker = new LinkObject();
 			
 			List<LinkedList> mocklinkset = linker.InitToWhen(mockinfolist, mockinitinfolist);
-			if(!mocklinkset.isEmpty())
-				System.out.println("find");
+			
 
 			//find no mock and when statement in field(Cayenne) 
 //			FieldVisitor fvisitor = new FieldVisitor();
