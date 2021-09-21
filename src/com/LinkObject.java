@@ -37,6 +37,12 @@ public class LinkObject {
 		return mocklinkset;
 	}
 	
+	//identify when pattern using simple value as return value
+	public void SimpleValueFilter(List<LinkedList> mocklinkset) {
+		for(int index = 0;index < mocklinkset.size();index++) {
+		}
+	}
+	
 	public void MockInfoLink(List<LinkedList> mocklinkset) {
 		List<LinkedList> linkset = new ArrayList<>();
 		
@@ -64,6 +70,7 @@ public class LinkObject {
 			
 			if(hasMockReturn == false) {
 				// if the return value is not a mock object
+				
 			}
 		}
 	}
