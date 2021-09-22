@@ -8,9 +8,22 @@ import java.util.Queue;
 import com.ReturnType;
 
 public class LinkObject {	
-	public List<LinkedList> InitToWhen(List<MockInfo> mockinfolist, List<MockInitInfo> mockinitinfolist) {
-		List<LinkedList> mocklinkset = new ArrayList<>();
-		
+	private List<LinkedList> simplevaluepattern = new ArrayList<>();
+	private List<LinkedList> mockvaluepattern = new ArrayList<>();
+	private List<LinkedList> objectvaluepattern = new ArrayList<>();
+	private List<LinkedList> methodvaluepattern = new ArrayList<>();
+	
+	private List<LinkedList> mocklinkset = new ArrayList<>();
+	
+	private List<MockInfo> mockinfolist = new ArrayList<>();
+	private List<MockInitInfo> mockinitinfolist = new ArrayList<>();
+	
+	public void InitializeLinker(List<MockInfo> infolist, List<MockInitInfo> initinfolist) {
+		mockinfolist.addAll(infolist);
+		mockinitinfolist.addAll(initinfolist);
+	}
+	
+	public void InitToWhen() {		
 		for(int index_init = 0;index_init < mockinitinfolist.size();index_init++) {			
 			for(int index_mock = 0;index_mock < mockinfolist.size();index_mock++) {
 				MockInitInfo mockinitinfo = mockinitinfolist.get(index_init);
@@ -22,7 +35,7 @@ public class LinkObject {
 					String init_name = mockinitinfo.getName();
 					
 					if(init_name.equals(when_name)) {
-						mockinitinfo.initHasWhen(true);
+						mockinitinfolist.get(index_init).initHasWhen(true);
 						
 						LinkedList<Info> pattern_list = new LinkedList<>();
 						pattern_list.addFirst(mockinitinfo);
@@ -33,16 +46,14 @@ public class LinkObject {
 				}
 			}
 		}
-		
-		return mocklinkset;
 	}
 	
 	//identify when pattern using simple value as return value
-	public void ReturnValueFilter(List<LinkedList> mocklinkset, List<MockInitInfo> mockinitinfolist) {
+	public void ReturnValueFilter() {
 		for(int index = 0;index < mocklinkset.size();index++) {
 			LinkedList<Info> patternlist = mocklinkset.get(index);
-			int tail = patternlist.size();
-			if(patternlist.get(tail) instanceof MockInitInfo)
+			int tail = patternlist.size()-1;
+			if(patternlist.get(tail).getInfoType() == InfoType.MOCK_INIT_INFO)
 				continue;
 			MockInfo mockinfo = (MockInfo) patternlist.get(tail);
 			
@@ -57,6 +68,7 @@ public class LinkObject {
 					mockinfo.getType() == ReturnType.CAST_EXPRESSION_TYPE) {
 				//cast expression and array creation type need no check in cayenne
 				((MockInfo) patternlist.get(tail)).initReturnMock(false); //return object is not a mock object
+				simplevaluepattern.add(patternlist);
 			}
 			else if(mockinfo.getType() == ReturnType.SIMPLE_NAME_TYPE) {
 				//identify whether when pattern using mock object as return value
@@ -75,20 +87,55 @@ public class LinkObject {
 					patternlist.add(mockinitinfolist.get(index_init)); //add return info to pattern list
 					((MockInfo) patternlist.get(tail)).initReturnMock(true); //return object is a mock object
 					flag = true;
+					mockvaluepattern.add(patternlist);
 					break;
 				}
 				
-				if(flag == false)
+				if(flag == false) {
 					((MockInfo) patternlist.get(tail)).initReturnMock(false);//return object is not a mock object
+					objectvaluepattern.add(patternlist);
+				}
 			}
 			else if(mockinfo.getType() == ReturnType.METHOD_TYPE) {
 				//temporary, code after finishing SIMPLE_NAME_TYPE
 				((MockInfo) patternlist.get(tail)).initReturnMock(false);
+				methodvaluepattern.add(patternlist);
+			}
+			else {
+				System.out.println("error");
 			}
 		}
 	}
 	
-	public void MockInfoLink(List<LinkedList> mocklinkset) {
+	public void MockValueMather() {
+		for(int index = 0;index < mockvaluepattern.size();index++) {
+			LinkedList<Info> patternlist = mockvaluepattern.get(index);
+			int tail = patternlist.size()-1;
+			MockInitInfo mockinitinfo = (MockInitInfo) patternlist.get(tail);
+			if(mockinitinfo.hasWhen() == false)
+				continue;
+			String field = mockinitinfo.getField();
+			String name = mockinitinfo.getName();
+			ListIndexInfo indexinfo = new ListIndexInfo();
+			for(int index_list = 0;index_list < mocklinkset.size();index_list++) {
+				LinkedList<Info> patternlist_set = mocklinkset.get(index);
+				MockInitInfo mockinitinfo_set = (MockInitInfo) patternlist_set.get(0);
+				String field_set = mockinitinfo_set.getField();
+				String name_set = mockinitinfo_set.getName();
+				if(!field.equals(field_set))
+					continue;
+				if(!name.equals(name_set))
+					continue;
+				indexinfo.InsertIndex(index_list);
+			}
+			mockvaluepattern.get(index).addLast(indexinfo);
+		}
+	}
+	
+	public void ObjectValueMatcher() {
+	}
+	
+	public void MockInfoLink() {
 		List<LinkedList> linkset = new ArrayList<>();
 		
 		for(int index_f = 0;index_f < mocklinkset.size();index_f++) {

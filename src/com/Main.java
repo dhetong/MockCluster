@@ -30,8 +30,10 @@ public class Main {
 			
 			LinkObject linker = new LinkObject();
 			
-			List<LinkedList> mocklinkset = linker.InitToWhen(mockinfolist, mockinitinfolist);
-			
+			linker.InitializeLinker(mockinfolist, mockinitinfolist);
+			linker.InitToWhen();
+			linker.ReturnValueFilter();
+			linker.MockValueMather();
 
 			//find no mock and when statement in field(Cayenne) 
 //			FieldVisitor fvisitor = new FieldVisitor();
