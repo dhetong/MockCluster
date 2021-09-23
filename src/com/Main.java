@@ -2,12 +2,14 @@ package com;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.Statement;
 
 import handler.FieldVisitor;
 import handler.MethodVisitor;
@@ -27,6 +29,7 @@ public class Main {
 			
 			List<MockInfo> mockinfolist = mvisitor.getMockInfoList();
 			List<MockInitInfo> mockinitinfolist = mvisitor.getMockInitInfoList();
+			HashMap<String,List<Statement>> stmtdict = mvisitor.getStmtDict();
 			
 			LinkObject linker = new LinkObject();
 			
@@ -34,6 +37,7 @@ public class Main {
 			linker.InitToWhen();
 			linker.ReturnValueFilter();
 			linker.MockValueMather();
+			linker.ObjectValueMatcher(stmtdict);
 
 			//find no mock and when statement in field(Cayenne) 
 //			FieldVisitor fvisitor = new FieldVisitor();

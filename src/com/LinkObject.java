@@ -1,9 +1,13 @@
 package com;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.Statement;
 
 import com.ReturnType;
 
@@ -36,6 +40,7 @@ public class LinkObject {
 					
 					if(init_name.equals(when_name)) {
 						mockinitinfolist.get(index_init).initHasWhen(true);
+						mockinitinfo.initHasWhen(true);
 						
 						LinkedList<Info> pattern_list = new LinkedList<>();
 						pattern_list.addFirst(mockinitinfo);
@@ -53,8 +58,6 @@ public class LinkObject {
 		for(int index = 0;index < mocklinkset.size();index++) {
 			LinkedList<Info> patternlist = mocklinkset.get(index);
 			int tail = patternlist.size()-1;
-			if(patternlist.get(tail).getInfoType() == InfoType.MOCK_INIT_INFO)
-				continue;
 			MockInfo mockinfo = (MockInfo) patternlist.get(tail);
 			
 			if(mockinfo.getType() == ReturnType.STR_TYPE ||
@@ -112,16 +115,18 @@ public class LinkObject {
 			LinkedList<Info> patternlist = mockvaluepattern.get(index);
 			int tail = patternlist.size()-1;
 			MockInitInfo mockinitinfo = (MockInitInfo) patternlist.get(tail);
-			if(mockinitinfo.hasWhen() == false)
+			if(mockinitinfo.hasWhen() == false) {
 				continue;
+			}
 			String field = mockinitinfo.getField();
 			String name = mockinitinfo.getName();
 			ListIndexInfo indexinfo = new ListIndexInfo();
 			for(int index_list = 0;index_list < mocklinkset.size();index_list++) {
-				LinkedList<Info> patternlist_set = mocklinkset.get(index);
+				LinkedList<Info> patternlist_set = mocklinkset.get(index_list);
 				MockInitInfo mockinitinfo_set = (MockInitInfo) patternlist_set.get(0);
 				String field_set = mockinitinfo_set.getField();
 				String name_set = mockinitinfo_set.getName();
+				
 				if(!field.equals(field_set))
 					continue;
 				if(!name.equals(name_set))
@@ -132,7 +137,27 @@ public class LinkObject {
 		}
 	}
 	
-	public void ObjectValueMatcher() {
+	public void ObjectValueMatcher(HashMap<String,List<Statement>> stmtdict) {
+		for(int index = 0;index < objectvaluepattern.size();index++) {
+			LinkedList<Info> patternlist = objectvaluepattern.get(index);
+			int tail = patternlist.size()-1;
+			MockInfo mockinfo = (MockInfo) patternlist.get(tail);
+			String field = mockinfo.getField();
+			String name = mockinfo.getContent();
+			
+			boolean flag = false;
+			
+			if(stmtdict.keySet().contains(field)) {
+				List<Statement> stmtlist = stmtdict.get(field);
+				for(Statement s:stmtlist) {
+					if(s.getNodeType() == Statement.VARIABLE_DECLARATION_STATEMENT) {
+						if(s.toString().contains(name)) {
+							flag = true;
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public void MockInfoLink() {
