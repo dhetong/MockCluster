@@ -157,6 +157,11 @@ public class LinkObject {
 					}
 				}
 			}
+			
+			if(flag == false) {
+				System.out.println(name);
+				System.out.println(field);
+			}
 		}
 	}
 	
