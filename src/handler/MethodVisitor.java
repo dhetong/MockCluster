@@ -18,6 +18,7 @@ public class MethodVisitor extends ASTVisitor {
 	private List<MockInitInfo> mockinitinfolist = new ArrayList<>();
 	
 	private HashMap<String,List<Statement>> stmtdict = new HashMap<>();
+	private HashMap<String,List> paradict = new HashMap<>();
 	
 	public void patternSearch(MethodDeclaration node) {
 		StatementFilter filter = new StatementFilter();
@@ -29,6 +30,10 @@ public class MethodVisitor extends ASTVisitor {
 		String field = node.getName().toString();
 		List<Statement> stmtlist = node.getBody().statements();
 		stmtdict.put(field, stmtlist);
+		
+		//create argument list for method
+		List paralist = node.parameters();
+		paradict.put(field, paralist);
 		
 		for(Statement s : (List<Statement>) body.statements()) {
 			MockInfo mockinfo = filter.whenstmFilter(s);
@@ -62,5 +67,9 @@ public class MethodVisitor extends ASTVisitor {
 	
 	public HashMap<String,List<Statement>> getStmtDict(){
 		return stmtdict;
+	}
+	
+	public HashMap<String,List> getParaDict(){
+		return paradict;
 	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 
 import handler.FieldVisitor;
@@ -27,9 +28,16 @@ public class Main {
 			MethodVisitor mvisitor = new MethodVisitor();
 			cunit.accept(mvisitor);
 			
+			//find no mock and when statement in field(Cayenne)
+			FieldVisitor fvisitor = new FieldVisitor();
+			cunit.accept(fvisitor);
+			
 			List<MockInfo> mockinfolist = mvisitor.getMockInfoList();
 			List<MockInitInfo> mockinitinfolist = mvisitor.getMockInitInfoList();
 			HashMap<String,List<Statement>> stmtdict = mvisitor.getStmtDict();
+			HashMap<String,List> paradict = mvisitor.getParaDict();
+			
+			List<FieldDeclaration> fieldstmtlist = fvisitor.getFieldStmt();
 			
 			LinkObject linker = new LinkObject();
 			
@@ -37,11 +45,7 @@ public class Main {
 			linker.InitToWhen();
 			linker.ReturnValueFilter();
 			linker.MockValueMather();
-			linker.ObjectValueMatcher(stmtdict);
-
-			//find no mock and when statement in field(Cayenne) 
-//			FieldVisitor fvisitor = new FieldVisitor();
-//			cunit.accept(fvisitor);
+			linker.ObjectValueMatcher(stmtdict, paradict, fieldstmtlist);
 		}
 	}
 }

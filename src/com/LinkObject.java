@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Queue;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import com.ReturnType;
 
@@ -137,7 +140,9 @@ public class LinkObject {
 		}
 	}
 	
-	public void ObjectValueMatcher(HashMap<String,List<Statement>> stmtdict) {
+	public void ObjectValueMatcher(HashMap<String,List<Statement>> stmtdict, 
+			HashMap<String,List> paradict,
+			List<FieldDeclaration> fieldstmtlist) {
 		for(int index = 0;index < objectvaluepattern.size();index++) {
 			LinkedList<Info> patternlist = objectvaluepattern.get(index);
 			int tail = patternlist.size()-1;
@@ -152,9 +157,26 @@ public class LinkObject {
 				for(Statement s:stmtlist) {
 					if(s.getNodeType() == Statement.VARIABLE_DECLARATION_STATEMENT) {
 						if(s.toString().contains(name)) {
+							List frag = ((VariableDeclarationStatement) s).fragments();
 							flag = true;
 						}
 					}
+				}
+			}
+			
+			if(paradict.keySet().contains(field)) {
+				List paralist = paradict.get(field);
+				for(int index_p = 0;index_p < paralist.size();index_p++) {
+					if(paralist.get(index_p).toString().contains(name)) {
+						flag = true;
+					}
+				}
+			}
+			
+			for(int index_f = 0;index_f < fieldstmtlist.size();index_f++) {
+				FieldDeclaration node = fieldstmtlist.get(index_f);
+				if(node.toString().contains(name)) {
+					flag = true;
 				}
 			}
 			
@@ -163,6 +185,9 @@ public class LinkObject {
 				System.out.println(field);
 			}
 		}
+	}
+	
+	private void fraghandler() {
 	}
 	
 	public void MockInfoLink() {
