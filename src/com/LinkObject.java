@@ -8,7 +8,10 @@ import java.util.Queue;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.ParameterizedType;
+import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
@@ -157,8 +160,7 @@ public class LinkObject {
 				for(Statement s:stmtlist) {
 					if(s.getNodeType() == Statement.VARIABLE_DECLARATION_STATEMENT) {
 						if(s.toString().contains(name)) {
-							List fraglist = ((VariableDeclarationStatement) s).fragments();
-							FragHandler(fraglist);
+							VarDecHandler((VariableDeclarationStatement) s);
 							flag = true;
 						}
 					}
@@ -183,9 +185,21 @@ public class LinkObject {
 		}
 	}
 	
-	private void FragHandler(List fraglist) {
+	private void VarDecHandler(VariableDeclarationStatement s) {
+		Type type = s.getType();
+		List fraglist = s.fragments();
+		
+		if(type instanceof SimpleType) {
+			String cname = type.toString();
+		}
+		else if(type instanceof ParameterizedType) {
+			String cname = type.toString();
+		}
+		
 		for(int index = 0;index < fraglist.size();index++) {
 			if(fraglist.get(index) instanceof VariableDeclarationFragment) {
+				VariableDeclarationFragment vardecfrag = 
+						(VariableDeclarationFragment) fraglist.get(index);
 			}
 			else {
 				//all of the fragment nodes are VariableDeclarationFragment
