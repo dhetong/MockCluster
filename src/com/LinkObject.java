@@ -157,7 +157,8 @@ public class LinkObject {
 				for(Statement s:stmtlist) {
 					if(s.getNodeType() == Statement.VARIABLE_DECLARATION_STATEMENT) {
 						if(s.toString().contains(name)) {
-							List frag = ((VariableDeclarationStatement) s).fragments();
+							List fraglist = ((VariableDeclarationStatement) s).fragments();
+							FragHandler(fraglist);
 							flag = true;
 						}
 					}
@@ -179,15 +180,17 @@ public class LinkObject {
 					flag = true;
 				}
 			}
-			
-			if(flag == false) {
-				System.out.println(name);
-				System.out.println(field);
-			}
 		}
 	}
 	
-	private void fraghandler() {
+	private void FragHandler(List fraglist) {
+		for(int index = 0;index < fraglist.size();index++) {
+			if(fraglist.get(index) instanceof VariableDeclarationFragment) {
+			}
+			else {
+				//all of the fragment nodes are VariableDeclarationFragment
+			}
+		}
 	}
 	
 	public void MockInfoLink() {
