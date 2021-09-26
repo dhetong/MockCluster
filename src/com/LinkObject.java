@@ -6,11 +6,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.ParameterizedType;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
@@ -186,6 +190,7 @@ public class LinkObject {
 	}
 	
 	private void VarDecHandler(VariableDeclarationStatement s) {
+		System.out.println(s.toString());
 		Type type = s.getType();
 		List fraglist = s.fragments();
 		
@@ -200,9 +205,38 @@ public class LinkObject {
 			if(fraglist.get(index) instanceof VariableDeclarationFragment) {
 				VariableDeclarationFragment vardecfrag = 
 						(VariableDeclarationFragment) fraglist.get(index);
+				String varname = vardecfrag.getName().toString();
+				Expression initializer = vardecfrag.getInitializer();
+				ExpressionFilter(initializer);
 			}
 			else {
 				//all of the fragment nodes are VariableDeclarationFragment
+			}
+		}
+	}
+	
+	private void ExpressionFilter(Expression initializer) {
+		if(initializer instanceof StringLiteral) {
+			String content = initializer.toString();
+		}
+		else if(initializer instanceof MethodInvocation){
+			if(((MethodInvocation) initializer).getExpression() == null) {
+			}
+			else {
+			}
+			
+			((MethodInvocation) initializer).getName();
+			
+			if(((MethodInvocation) initializer).arguments() == null) {
+			}
+			else {
+			}
+		}
+		else if(initializer instanceof ClassInstanceCreation) {
+			Type typename = ((ClassInstanceCreation) initializer).getType();
+			if(((ClassInstanceCreation) initializer).arguments() == null) {
+			}
+			else {
 			}
 		}
 	}
