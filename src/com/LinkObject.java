@@ -11,7 +11,9 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jdt.core.dom.NumberLiteral;
 import org.eclipse.jdt.core.dom.ParameterizedType;
+import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.StringLiteral;
@@ -20,6 +22,11 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import com.ReturnType;
+
+import arginfo.ArgInfo;
+import patternnodeinfo.Info;
+import patternnodeinfo.MockInfo;
+import patternnodeinfo.MockInitInfo;
 
 public class LinkObject {	
 	private List<LinkedList> simplevaluepattern = new ArrayList<>();
@@ -222,10 +229,11 @@ public class LinkObject {
 		if(initializer instanceof StringLiteral) {
 			String content = initializer.toString();
 			
-			objectinfo.InitType(1);
+			objectinfo.InitInfoType(1);
 			objectinfo.InitContent(content);
 		}
 		else if(initializer instanceof MethodInvocation){
+			objectinfo.initInfoType(2);
 			if(((MethodInvocation) initializer).getExpression() == null) {
 				objectinfo.InitInvokedObject(null);
 			}
@@ -238,22 +246,49 @@ public class LinkObject {
 			objectinfo.InitInvokedMethod(invoked_method);
 			
 			if(((MethodInvocation) initializer).arguments() == null) {
+				objectinfo.InitHasArgs(false);
 			}
 			else {
 				List arglist = ((MethodInvocation) initializer).arguments();
+				List arginfolist = ArgFilter(arglist);
+				objectinfo.InitHasArgs(true);
 			}
 		}
 		else if(initializer instanceof ClassInstanceCreation) {
+			objectinfo.InitInfoType(3);
+			
 			Type typename = ((ClassInstanceCreation) initializer).getType();
+			objectinfo.InitTypeName(typename.toString());
+			
 			if(((ClassInstanceCreation) initializer).arguments() == null) {
+				objectinfo.InitHasArgs(false);
 			}
 			else {
 				List arglist = ((ClassInstanceCreation) initializer).arguments();
+				List arginoflist = ArgFilter(arglist);
+				objectinfo.InitHasArgs(true);
 			}
 		}
 	}
 	
-	private void ArgFilter(List args) {
+	private List<ArgInfo> ArgFilter(List args) {
+		List<ArgInfo> argsinfolist = new ArrayList<>();
+		
+		for(int index = 0;index < args.size();index++) {
+			if(args.get(index) instanceof StringLiteral) {
+			}
+			else if(args.get(index) instanceof NumberLiteral) {
+			}
+			else if(args.get(index) instanceof SimpleName){
+			}
+			else if(args.get(index) instanceof MethodInvocation){
+			}
+			else {
+				//no other type of argument in cayenne
+			}
+		}
+		
+		return argsinfolist;
 	}
 	
 	public void MockInfoLink() {

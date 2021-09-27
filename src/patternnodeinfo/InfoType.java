@@ -1,4 +1,4 @@
-package com;
+package patternnodeinfo;
 
 public class InfoType {
 	public final static int MOCK_INIT_INFO = 1;

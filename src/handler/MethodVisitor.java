@@ -9,9 +9,10 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 
-import com.MockInfo;
-import com.MockInitInfo;
 import com.StatementFilter;
+
+import patternnodeinfo.MockInfo;
+import patternnodeinfo.MockInitInfo;
 
 public class MethodVisitor extends ASTVisitor {
 	private List<MockInfo> mockinfolist = new ArrayList<>();

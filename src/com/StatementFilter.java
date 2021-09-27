@@ -14,6 +14,8 @@ import org.eclipse.jdt.core.dom.Type;
 
 import handler.AssignmentVisitor;
 import handler.ThenPatternHandler;
+import patternnodeinfo.MockInfo;
+import patternnodeinfo.MockInitInfo;
 
 public class StatementFilter {
 	public MockInfo whenstmFilter(Statement s) {

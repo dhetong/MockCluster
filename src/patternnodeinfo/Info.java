@@ -1,4 +1,4 @@
-package com;
+package patternnodeinfo;
 
 public class Info {
 	private int info_type;

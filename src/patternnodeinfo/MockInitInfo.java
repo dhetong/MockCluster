@@ -1,4 +1,4 @@
-package com;
+package patternnodeinfo;
 
 public class MockInitInfo extends Info {
 	private String mock_object_name;

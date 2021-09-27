@@ -14,6 +14,8 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import handler.FieldVisitor;
 import handler.MethodVisitor;
+import patternnodeinfo.MockInfo;
+import patternnodeinfo.MockInitInfo;
 
 public class Main {		
 	public static void main(String[] args) throws CoreException, Exception{

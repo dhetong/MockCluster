@@ -15,7 +15,7 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TypeLiteral;
 
-import com.MockInfo;
+import patternnodeinfo.MockInfo;
 
 public class ThenPatternHandler extends ASTVisitor {
 	private String return_content;

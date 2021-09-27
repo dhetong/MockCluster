@@ -1,25 +1,39 @@
 package com;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import arginfo.ArgInfo;
+import patternnodeinfo.Info;
+
 public class ObjectInfo extends Info {
-	private int object_type;
+	private int info_type;
 	
 	private String varname;
 	private String classname;
 	
 	//parameter for StringLiteral
 	private String content;
+	
 	//parameters for MethodInvocation
 	private String invoked_object;
 	private String invoked_method;
 	
-	public void InitType(int type) {
+	//parameters for ClassInstanceCreation
+	private String type_name;
+	
+	//parameter for MethodInvocation and ClassInstanceCreation
+	private boolean hasargs;
+	private List<ArgInfo> argslist = new ArrayList<>();
+	
+	//public
+	public void InitInfoType(int type) {
 		//type = 1, if the fragment is a StringLiteral
 		//type = 2, if the fragment is a MethodInvocation
 		//type = 3, if the fragment is a ClassInstanceCreation
-		object_type = type;
+		info_type = type;
 	}
 	
-	//public
 	public void InitVarName(String var) {
 		varname = var;
 	}
@@ -28,8 +42,8 @@ public class ObjectInfo extends Info {
 		classname = cname;
 	}
 	
-	public int getType() {
-		return object_type;
+	public int getInfoType() {
+		return info_type;
 	}
 	
 	//for StringLiteral
@@ -44,5 +58,20 @@ public class ObjectInfo extends Info {
 	
 	public void InitInvokedMethod(String invoked) {
 		invoked_method = invoked;
+	}
+	
+	//for ClassInstanceCreation
+	public void InitTypeName(String cname) {
+		//the created class type for ClassInstanceCreation
+		type_name = cname;
+	}
+	
+	//for MethodInvocation and ClassInstanceCreation
+	public void InitHasArgs(boolean has) {
+		hasargs = has;
+	}
+	
+	public void InitArgs(List<ArgInfo> args) {
+		argslist.addAll(args);
 	}
 }
