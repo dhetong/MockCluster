@@ -1,10 +1,9 @@
-package com;
+package patternnodeinfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import arginfo.ArgInfo;
-import patternnodeinfo.Info;
 
 public class ObjectInfo extends Info {
 	private int info_type;
@@ -27,6 +26,10 @@ public class ObjectInfo extends Info {
 	private List<ArgInfo> argslist = new ArrayList<>();
 	
 	//public
+	public ObjectInfo() {
+		initInfoType(InfoType.OBJECT_INIT_INFO);
+	}
+	
 	public void InitInfoType(int type) {
 		//type = 1, if the fragment is a StringLiteral
 		//type = 2, if the fragment is a MethodInvocation

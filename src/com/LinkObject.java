@@ -27,6 +27,7 @@ import arginfo.ArgInfo;
 import patternnodeinfo.Info;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
+import patternnodeinfo.ObjectInfo;
 
 public class LinkObject {	
 	private List<LinkedList> simplevaluepattern = new ArrayList<>();
