@@ -24,10 +24,18 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import com.ReturnType;
 
 import arginfo.ArgInfo;
+import arginfo.MethodArg;
+import arginfo.NumberArg;
+import arginfo.SimpleNameArg;
+import arginfo.StringArg;
+import patternnodeinfo.FieldObjectInfo;
 import patternnodeinfo.Info;
+import patternnodeinfo.ListIndexInfo;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
 import patternnodeinfo.ObjectInfo;
+import patternnodeinfo.ObjectInitType;
+import patternnodeinfo.ParaInfo;
 
 public class LinkObject {	
 	private List<LinkedList> simplevaluepattern = new ArrayList<>();
@@ -165,15 +173,14 @@ public class LinkObject {
 			String field = mockinfo.getField();
 			String name = mockinfo.getContent();
 			
-			boolean flag = false;
-			
 			if(stmtdict.keySet().contains(field)) {
 				List<Statement> stmtlist = stmtdict.get(field);
 				for(Statement s:stmtlist) {
 					if(s.getNodeType() == Statement.VARIABLE_DECLARATION_STATEMENT) {
 						if(s.toString().contains(name)) {
-							VarDecHandler((VariableDeclarationStatement) s);
-							flag = true;
+							ObjectInfo objectinfo = 
+									VarDecHandler((VariableDeclarationStatement) s);
+							objectvaluepattern.get(index).addLast(objectinfo);
 						}
 					}
 				}
@@ -183,7 +190,9 @@ public class LinkObject {
 				List paralist = paradict.get(field);
 				for(int index_p = 0;index_p < paralist.size();index_p++) {
 					if(paralist.get(index_p).toString().contains(name)) {
-						flag = true;
+						//no object with simple value was found in cayenne
+						ParaInfo parainfo = new ParaInfo();
+						objectvaluepattern.get(index).addLast(parainfo);
 					}
 				}
 			}
@@ -191,23 +200,19 @@ public class LinkObject {
 			for(int index_f = 0;index_f < fieldstmtlist.size();index_f++) {
 				FieldDeclaration node = fieldstmtlist.get(index_f);
 				if(node.toString().contains(name)) {
-					flag = true;
+					//no object with simple value was found in cayenne
+					FieldObjectInfo fieldobjectinfo = new FieldObjectInfo();
+					objectvaluepattern.get(index).addLast(fieldobjectinfo);
 				}
 			}
 		}
 	}
 	
-	private void VarDecHandler(VariableDeclarationStatement s) {
-		System.out.println(s.toString());
+	private ObjectInfo VarDecHandler(VariableDeclarationStatement s) {
+		ObjectInfo objectinfo = new ObjectInfo();
+		
 		Type type = s.getType();
 		List fraglist = s.fragments();
-		
-		if(type instanceof SimpleType) {
-			String cname = type.toString();
-		}
-		else if(type instanceof ParameterizedType) {
-			String cname = type.toString();
-		}
 		
 		for(int index = 0;index < fraglist.size();index++) {
 			if(fraglist.get(index) instanceof VariableDeclarationFragment) {
@@ -215,26 +220,37 @@ public class LinkObject {
 						(VariableDeclarationFragment) fraglist.get(index);
 				String varname = vardecfrag.getName().toString();
 				Expression initializer = vardecfrag.getInitializer();
-				ExpressionFilter(initializer, varname);
+				objectinfo = ExpressionFilter(initializer, varname);
 			}
 			else {
 				//all of the fragment nodes are VariableDeclarationFragment
 			}
 		}
+		
+		if(type instanceof SimpleType) {
+			String cname = type.toString();
+			objectinfo.InitClass(cname);
+		}
+		else if(type instanceof ParameterizedType) {
+			String cname = type.toString();
+			objectinfo.InitClass(cname);
+		}
+		
+		return objectinfo;
 	}
 	
-	private void ExpressionFilter(Expression initializer, String var) {
+	private ObjectInfo ExpressionFilter(Expression initializer, String var) {
 		ObjectInfo objectinfo = new ObjectInfo();
 		objectinfo.InitVarName(var);
 		
 		if(initializer instanceof StringLiteral) {
 			String content = initializer.toString();
 			
-			objectinfo.InitInfoType(1);
+			objectinfo.InitInfoType(ObjectInitType.STR_TYPE);
 			objectinfo.InitContent(content);
 		}
 		else if(initializer instanceof MethodInvocation){
-			objectinfo.initInfoType(2);
+			objectinfo.initInfoType(ObjectInitType.METHOD_INVOCATION_TYPE);
 			if(((MethodInvocation) initializer).getExpression() == null) {
 				objectinfo.InitInvokedObject(null);
 			}
@@ -253,10 +269,11 @@ public class LinkObject {
 				List arglist = ((MethodInvocation) initializer).arguments();
 				List arginfolist = ArgFilter(arglist);
 				objectinfo.InitHasArgs(true);
+				objectinfo.InitArgs(arginfolist);
 			}
 		}
 		else if(initializer instanceof ClassInstanceCreation) {
-			objectinfo.InitInfoType(3);
+			objectinfo.InitInfoType(ObjectInitType.CLASS_INSTANCE_CREATION_TYPE);
 			
 			Type typename = ((ClassInstanceCreation) initializer).getType();
 			objectinfo.InitTypeName(typename.toString());
@@ -268,8 +285,11 @@ public class LinkObject {
 				List arglist = ((ClassInstanceCreation) initializer).arguments();
 				List arginoflist = ArgFilter(arglist);
 				objectinfo.InitHasArgs(true);
+				objectinfo.InitArgs(arginoflist);
 			}
 		}
+		
+		return objectinfo;
 	}
 	
 	private List<ArgInfo> ArgFilter(List args) {
@@ -277,12 +297,30 @@ public class LinkObject {
 		
 		for(int index = 0;index < args.size();index++) {
 			if(args.get(index) instanceof StringLiteral) {
+				StringArg arg = new StringArg(args.get(index).toString());
+				argsinfolist.add(arg);
 			}
 			else if(args.get(index) instanceof NumberLiteral) {
+				int n = Integer.parseInt(args.get(index).toString());
+				NumberArg arg = new NumberArg(n);
+				argsinfolist.add(arg);
 			}
 			else if(args.get(index) instanceof SimpleName){
+				SimpleNameArg arg = new SimpleNameArg(args.get(index).toString());
+				argsinfolist.add(arg);
 			}
 			else if(args.get(index) instanceof MethodInvocation){
+				MethodInvocation method = (MethodInvocation) args.get(index);
+				MethodArg arg = new MethodArg(method.getExpression().toString(), 
+						method.getName().toString());
+				List m_args = method.arguments();
+				if(m_args.size() == 0) {
+					arg.InitHasArg(false);
+				}
+				else {
+					//find no this kind of instance in cayenne
+				}
+				argsinfolist.add(arg);
 			}
 			else {
 				//no other type of argument in cayenne

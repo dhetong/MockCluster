@@ -54,6 +54,10 @@ public class ObjectInfo extends Info {
 		content = strcontent;
 	}
 	
+	public String getContent() {
+		return content;
+	}
+	
 	//for MethodInvocation
 	public void InitInvokedObject(String invoked) {
 		invoked_object = invoked;

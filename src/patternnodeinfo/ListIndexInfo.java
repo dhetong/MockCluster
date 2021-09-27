@@ -1,9 +1,7 @@
-package com;
+package patternnodeinfo;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import patternnodeinfo.Info;
 
 public class ListIndexInfo extends Info {
 	private List<Integer> indexlist = new ArrayList<>();
