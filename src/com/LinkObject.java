@@ -207,7 +207,7 @@ public class LinkObject {
 						(VariableDeclarationFragment) fraglist.get(index);
 				String varname = vardecfrag.getName().toString();
 				Expression initializer = vardecfrag.getInitializer();
-				ExpressionFilter(initializer);
+				ExpressionFilter(initializer, varname);
 			}
 			else {
 				//all of the fragment nodes are VariableDeclarationFragment
@@ -215,21 +215,32 @@ public class LinkObject {
 		}
 	}
 	
-	private void ExpressionFilter(Expression initializer) {
+	private void ExpressionFilter(Expression initializer, String var) {
+		ObjectInfo objectinfo = new ObjectInfo();
+		objectinfo.InitVarName(var);
+		
 		if(initializer instanceof StringLiteral) {
 			String content = initializer.toString();
+			
+			objectinfo.InitType(1);
+			objectinfo.InitContent(content);
 		}
 		else if(initializer instanceof MethodInvocation){
 			if(((MethodInvocation) initializer).getExpression() == null) {
+				objectinfo.InitInvokedObject(null);
 			}
 			else {
+				String invoked_object = ((MethodInvocation) initializer).getExpression().toString();
+				objectinfo.InitInvokedObject(invoked_object);
 			}
 			
-			((MethodInvocation) initializer).getName();
+			String invoked_method = ((MethodInvocation) initializer).getName().toString();
+			objectinfo.InitInvokedMethod(invoked_method);
 			
 			if(((MethodInvocation) initializer).arguments() == null) {
 			}
 			else {
+				List arglist = ((MethodInvocation) initializer).arguments();
 			}
 		}
 		else if(initializer instanceof ClassInstanceCreation) {
@@ -237,8 +248,12 @@ public class LinkObject {
 			if(((ClassInstanceCreation) initializer).arguments() == null) {
 			}
 			else {
+				List arglist = ((ClassInstanceCreation) initializer).arguments();
 			}
 		}
+	}
+	
+	private void ArgFilter(List args) {
 	}
 	
 	public void MockInfoLink() {
