@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import handler.FieldVisitor;
 import handler.MethodVisitor;
+import output.CSVWriter;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
 
@@ -48,6 +49,9 @@ public class Main {
 			linker.ReturnValueFilter();
 			linker.MockValueMather();
 			linker.ObjectValueMatcher(stmtdict, paradict, fieldstmtlist);
+			
+			CSVWriter writer = new CSVWriter();
+			writer.WriteSimpleFile(linker.getSimplePattern());
 		}
 	}
 }

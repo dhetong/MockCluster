@@ -369,4 +369,16 @@ public class LinkObject {
 			return false;
 		return true;
 	}
+	
+	public List<LinkedList> getSimplePattern(){
+		return simplevaluepattern;
+	}
+	
+	public List<LinkedList> getMockPattern(){
+		return mockvaluepattern;
+	}
+	
+	public List<LinkedList> getObjectPattern(){
+		return objectvaluepattern;
+	}
 }
