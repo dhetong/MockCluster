@@ -38,4 +38,23 @@ public class MockInitInfo extends Info {
 	public boolean hasWhen() {
 		return hasWhen;
 	}
+	
+	private String stmt;
+	private int position;
+	
+	public void InitStmt(String s) {
+		stmt = s;
+	}
+	
+	public String getStmt() {
+		return stmt;
+	}
+	
+	public void InitPosition(int pos) {
+		position = pos;
+	}
+	
+	public int getPosition() {
+		return position;
+	}
 }

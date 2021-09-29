@@ -1,4 +1,4 @@
-package com;
+package common;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,7 +51,9 @@ public class Main {
 			linker.ObjectValueMatcher(stmtdict, paradict, fieldstmtlist);
 			
 			CSVWriter writer = new CSVWriter();
-			writer.WriteSimpleFile(linker.getSimplePattern());
+//			writer.WriteSimpleFile(linker.getSimplePattern(), file.toString());
+//			writer.WriteObjectFile(linker.getObjectPattern(), file.toString());
+			writer.WriteMockFile(linker.getMockPattern(), linker.getLinkSet(), file.toString());
 		}
 	}
 }

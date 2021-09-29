@@ -9,8 +9,7 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 
-import com.StatementFilter;
-
+import common.StatementFilter;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
 
@@ -41,12 +40,22 @@ public class MethodVisitor extends ASTVisitor {
 			
 			if(mockinfo != null) {
 				mockinfo.initField(node.getName().toString());
+				
+				//add statement into mockinfo
+				mockinfo.InitStmt(s.toString());
+				mockinfo.InitPosition(s.getStartPosition());
+				
 				mockinfolist.add(mockinfo);
 			}
 			
 			MockInitInfo mockinitinfo = filter.mockstmFilter(s);
 			if(mockinitinfo != null) {
 				mockinitinfo.initField(node.getName().toString());
+				
+				//add statement into mockinitinfo
+				mockinitinfo.InitStmt(s.toString());
+				mockinitinfo.InitPosition(s.getStartPosition());
+				
 				mockinitinfolist.add(mockinitinfo);
 			}
 		}

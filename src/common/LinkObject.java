@@ -1,4 +1,4 @@
-package com;
+package common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +21,6 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import com.ReturnType;
-
 import arginfo.ArgInfo;
 import arginfo.MethodArg;
 import arginfo.NumberArg;
@@ -36,6 +34,7 @@ import patternnodeinfo.MockInitInfo;
 import patternnodeinfo.ObjectInfo;
 import patternnodeinfo.ObjectInitType;
 import patternnodeinfo.ParaInfo;
+import patternnodeinfo.ReturnType;
 
 public class LinkObject {	
 	private List<LinkedList> simplevaluepattern = new ArrayList<>();
@@ -180,6 +179,10 @@ public class LinkObject {
 						if(s.toString().contains(name)) {
 							ObjectInfo objectinfo = 
 									VarDecHandler((VariableDeclarationStatement) s);
+							
+							objectinfo.InitStmt(s.toString());
+							objectinfo.InitPosition(s.getStartPosition());
+							objectinfo.InitField(field);
 							objectvaluepattern.get(index).addLast(objectinfo);
 						}
 					}
@@ -192,6 +195,8 @@ public class LinkObject {
 					if(paralist.get(index_p).toString().contains(name)) {
 						//no object with simple value was found in cayenne
 						ParaInfo parainfo = new ParaInfo();
+						
+						parainfo.InitStmt(paralist.get(index_p).toString());
 						objectvaluepattern.get(index).addLast(parainfo);
 					}
 				}
@@ -202,6 +207,9 @@ public class LinkObject {
 				if(node.toString().contains(name)) {
 					//no object with simple value was found in cayenne
 					FieldObjectInfo fieldobjectinfo = new FieldObjectInfo();
+					
+					fieldobjectinfo.InitStmt(node.toString());
+					fieldobjectinfo.InitPosition(node.getStartPosition());
 					objectvaluepattern.get(index).addLast(fieldobjectinfo);
 				}
 			}
@@ -270,6 +278,7 @@ public class LinkObject {
 				List arginfolist = ArgFilter(arglist);
 				objectinfo.InitHasArgs(true);
 				objectinfo.InitArgs(arginfolist);
+				objectinfo.InitArgHasSimple(ArgHasSimple(arglist));
 			}
 		}
 		else if(initializer instanceof ClassInstanceCreation) {
@@ -286,10 +295,22 @@ public class LinkObject {
 				List arginoflist = ArgFilter(arglist);
 				objectinfo.InitHasArgs(true);
 				objectinfo.InitArgs(arginoflist);
+				objectinfo.InitArgHasSimple(ArgHasSimple(arglist));
 			}
 		}
 		
 		return objectinfo;
+	}
+	
+	private boolean ArgHasSimple(List args) {
+		boolean flag = false;
+		for(int index = 0;index < args.size();index++) {
+			if(args.get(index) instanceof StringLiteral)
+				flag = true;
+			else if(args.get(index) instanceof NumberLiteral)
+				flag = true;
+		}
+		return flag;
 	}
 	
 	private List<ArgInfo> ArgFilter(List args) {
@@ -380,5 +401,9 @@ public class LinkObject {
 	
 	public List<LinkedList> getObjectPattern(){
 		return objectvaluepattern;
+	}
+	
+	public List<LinkedList> getLinkSet(){
+		return mocklinkset;
 	}
 }

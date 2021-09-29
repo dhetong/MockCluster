@@ -1,0 +1,75 @@
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/datasource/ManagedPoolingDataSourceIT.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/datasource/PoolingDataSourceTest.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/datasource/PoolAwareConnectionTest.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/configuration/server/ServerRuntimeTest.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/configuration/server/DefaultDbAdapterFactoryTest.java"
+"0","final DbAdapter adapter=mock(JdbcAdapter.class);
+when(adapter.unwrap()).thenReturn(adapter);
+final DbAdapter adapter=mock(JdbcAdapter.class);
+when(adapter.createTable(any(DbEntity.class))).thenReturn(""XXXXX"");
+","testCreatedAdapter_AutotestCreatedAdapter_AutotestCreatedAdapter_AutotestCreatedAdapter_Auto","2953308829533012"
+"1","final DbAdapter adapter=mock(JdbcAdapter.class);
+when(adapter.unwrap()).thenReturn(adapter);
+final DbAdapter adapter=mock(JdbcAdapter.class);
+when(adapter.createTable(any(DbEntity.class))).thenReturn(""XXXXX"");
+","testCreatedAdapter_AutoExplicittestCreatedAdapter_AutoExplicittestCreatedAdapter_AutoExplicittestCreatedAdapter_AutoExplicit","8884901988848943"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/configuration/server/DataDomainProviderTest.java"
+"0","Persistent mockPersistent=mock(Persistent.class);
+when(mockPersistent.getObjectId()).thenReturn(mockObjectId);
+ObjectId mockObjectId=mock(ObjectId.class);
+when(mockObjectId.getEntityName()).thenReturn(""mock-entity-name"");
+","testGettestGettestGettestGet","15826160151588615940"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/ArcValuesCreationHandlerTest.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/DefaultDbRowOpSorterTest.java"
+"0","DataDomain dataDomain=mock(DataDomain.class);
+when(dataDomain.getEntitySorter()).thenReturn(entitySorter);
+entitySorter=mock(EntitySorter.class);
+when(entitySorter.isReflexive(argThat(ent -> ent.getName().equals(""reflexive"")))).thenReturn(true);
+","createSortercreateSortercreateSortercreateSorter","2605266122402479"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/DataContextIT.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/map/EntityResolverClassDescriptorIT.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/query/SelectQueryMetadataCacheKeyTest.java"
+"0","registry=mock(ValueObjectTypeRegistry.class);
+when(registry.getValueType(eq(Double.class))).thenReturn(mockType);
+ValueObjectType mockType=mock(ValueObjectType.class);
+when(mockType.getValueType()).thenReturn(Double.class);
+when(mockType.toCacheKey(any())).thenReturn(""<value placeholder>"");
+","createObjectscreateObjectscreateObjectscreateObjectscreateObjects","19492254205021142178"
+"1","Persistent persistent1=mock(Persistent.class);
+when(persistent1.getObjectId()).thenReturn(objectId1);
+ObjectId objectId1=mock(ObjectId.class);
+when(objectId1.toString()).thenReturn(""objId1"");
+","cacheKeyWithPersistentObjectcacheKeyWithPersistentObjectcacheKeyWithPersistentObjectcacheKeyWithPersistentObject","5434559954915542"
+"2","Persistent persistent2=mock(Persistent.class);
+when(persistent2.getObjectId()).thenReturn(objectId2);
+ObjectId objectId2=mock(ObjectId.class);
+when(objectId2.toString()).thenReturn(""objId2"");
+","cacheKeyWithPersistentObjectcacheKeyWithPersistentObjectcacheKeyWithPersistentObjectcacheKeyWithPersistentObject","5663582857205771"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-dbsync/src/test/java/org/apache/cayenne/dbsync/reverse/dbimport/DefaultDbImportActionTest.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-crypto/src/test/java/org/apache/cayenne/crypto/transformer/value/DefaultValueTransformerFactoryIT.java"
+"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-cgen/src/test/java/org/apache/cayenne/gen/PropertyUtilsTest.java"
+"0","ObjRelationship relationship=mock(ObjRelationship.class);
+when(relationship.getTargetEntity()).thenReturn(entity);
+ObjEntity entity=mock(ObjEntity.class);
+when(entity.getName()).thenReturn(""target"");
+","testImportRelationshiptestImportRelationshiptestImportRelationshiptestImportRelationship","4052438538903998"
+"1","ObjRelationship relationship=mock(ObjRelationship.class);
+when(relationship.getTargetEntity()).thenReturn(entity);
+ObjEntity entity=mock(ObjEntity.class);
+when(entity.getName()).thenReturn(""target"");
+","toOneRelationshipDefinitiontoOneRelationshipDefinitiontoOneRelationshipDefinitiontoOneRelationshipDefinition","11361116201119911307"
+"2","ObjRelationship relationship=mock(ObjRelationship.class);
+when(relationship.getTargetEntity()).thenReturn(entity);
+ObjEntity entity=mock(ObjEntity.class);
+when(entity.getName()).thenReturn(""target"");
+","listRelationshipDefinitionlistRelationshipDefinitionlistRelationshipDefinitionlistRelationshipDefinition","12329126621216712275"
+"3","ObjRelationship relationship=mock(ObjRelationship.class);
+when(relationship.getTargetEntity()).thenReturn(entity);
+ObjEntity entity=mock(ObjEntity.class);
+when(entity.getName()).thenReturn(""target"");
+","setRelationshipDefinitionsetRelationshipDefinitionsetRelationshipDefinitionsetRelationshipDefinition","13361136921319913307"
+"5","ObjRelationship relationship=mock(ObjRelationship.class);
+when(relationship.getTargetEntity()).thenReturn(entity);
+ObjEntity entity=mock(ObjEntity.class);
+when(entity.getName()).thenReturn(""target"");
+","mapRelationshipDefinitionmapRelationshipDefinitionmapRelationshipDefinitionmapRelationshipDefinition","14587149761435514463"

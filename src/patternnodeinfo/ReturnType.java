@@ -1,4 +1,4 @@
-package com;
+package patternnodeinfo;
 
 public final class ReturnType {
 	public final static int STR_TYPE = 1;

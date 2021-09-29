@@ -11,6 +11,8 @@ public class ObjectInfo extends Info {
 	private String varname;
 	private String classname;
 	
+	private String field;
+	
 	//parameter for StringLiteral
 	private String content;
 	
@@ -23,6 +25,7 @@ public class ObjectInfo extends Info {
 	
 	//parameter for MethodInvocation and ClassInstanceCreation
 	private boolean hasargs;
+	private boolean argshassimple = false;
 	private List<ArgInfo> argslist = new ArrayList<>();
 	
 	//public
@@ -47,6 +50,14 @@ public class ObjectInfo extends Info {
 	
 	public int getInfoType() {
 		return info_type;
+	}
+	
+	public void InitField(String f) {
+		field = f;
+	}
+	
+	public String getField() {
+		return field;
 	}
 	
 	//for StringLiteral
@@ -80,5 +91,32 @@ public class ObjectInfo extends Info {
 	
 	public void InitArgs(List<ArgInfo> args) {
 		argslist.addAll(args);
+	}
+	
+	public void InitArgHasSimple(boolean hassimple) {
+		argshassimple = hassimple;
+	}
+	
+	public boolean ArgsHasSimple() {
+		return argshassimple;
+	}
+	
+	private String stmt;
+	private int position;
+	
+	public void InitStmt(String s) {
+		stmt = s;
+	}
+	
+	public String getStmt() {
+		return stmt;
+	}
+	
+	public void InitPosition(int pos) {
+		position = pos;
+	}
+	
+	public int getPosition() {
+		return position;
 	}
 }

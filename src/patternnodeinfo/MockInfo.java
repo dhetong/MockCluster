@@ -49,4 +49,23 @@ public class MockInfo extends Info {
 	public boolean isReturnMock() {
 		return isReturnMock;
 	}
+	
+	private String stmt;
+	private int position;
+	
+	public void InitStmt(String s) {
+		stmt = s;
+	}
+	
+	public String getStmt() {
+		return stmt;
+	}
+	
+	public void InitPosition(int pos) {
+		position = pos;
+	}
+	
+	public int getPosition() {
+		return position;
+	}
 }
