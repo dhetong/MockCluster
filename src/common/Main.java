@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.Statement;
 
 import handler.FieldVisitor;
 import handler.MethodVisitor;
+import implementationfinder.ImplementationFinder;
 import output.CSVWriter;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
@@ -24,6 +25,9 @@ public class Main {
 		
 		FilterFile walkdir = new FilterFile();
 		List<File> files = walkdir.walk(Constant.TESTPROJECT);
+		
+		ImplementationFinder finder = new ImplementationFinder();
+		
 		for(File file: files) {
 			JavaToAST jdt = new JavaToAST();
 			CompilationUnit cunit = jdt.getCompilationUnit(file);
@@ -50,10 +54,14 @@ public class Main {
 			linker.MockValueMather();
 			linker.ObjectValueMatcher(stmtdict, paradict, fieldstmtlist);
 			
-			CSVWriter writer = new CSVWriter();
+			finder.UpdateKeyList(linker.getSimplePattern());
+			finder.UpdateKeyList(linker.getObjectPattern());
+			finder.UpdateKeyList(linker.getMockPattern());
+			
+//			CSVWriter writer = new CSVWriter();
 //			writer.WriteSimpleFile(linker.getSimplePattern(), file.toString());
 //			writer.WriteObjectFile(linker.getObjectPattern(), file.toString());
-			writer.WriteMockFile(linker.getMockPattern(), linker.getLinkSet(), file.toString());
+//			writer.WriteMockFile(linker.getMockPattern(), linker.getLinkSet(), file.toString());
 		}
 	}
 }
