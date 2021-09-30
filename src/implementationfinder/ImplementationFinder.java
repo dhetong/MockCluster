@@ -42,6 +42,10 @@ public class ImplementationFinder {
 		}
 	}
 	
+	public List<SearchKey> getKeyList(){
+		return keylist;
+	}
+	
 	public void PrintList() {
 		for(int index = 0;index < keylist.size();index++) {
 			SearchKey key = keylist.get(index);

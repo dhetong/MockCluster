@@ -15,6 +15,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import handler.FieldVisitor;
 import handler.MethodVisitor;
 import implementationfinder.ImplementationFinder;
+import implementationfinder.MethodScanner;
 import output.CSVWriter;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
@@ -62,6 +63,14 @@ public class Main {
 //			writer.WriteSimpleFile(linker.getSimplePattern(), file.toString());
 //			writer.WriteObjectFile(linker.getObjectPattern(), file.toString());
 //			writer.WriteMockFile(linker.getMockPattern(), linker.getLinkSet(), file.toString());
+		}
+		
+		for(File file: files) {
+			JavaToAST jdt = new JavaToAST();
+			CompilationUnit cunit = jdt.getCompilationUnit(file);
+			
+			MethodScanner scanner = new MethodScanner(finder);
+			cunit.accept(scanner);
 		}
 	}
 }
