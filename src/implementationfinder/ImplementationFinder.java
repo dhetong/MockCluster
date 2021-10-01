@@ -19,7 +19,8 @@ public class ImplementationFinder {
 		for(int index = 0;index < keylist.size();index++) {
 			SearchKey tmp = keylist.get(index);
 			if(tmp.getClassName().equals(key.getClassName()) &&
-					tmp.getMethodName().equals(key.getMethodName())) {
+					tmp.getMethodName().equals(key.getMethodName()) &&
+					tmp.getFieldName().equals(key.getFieldName())) {
 				flag = true;
 				break;
 			}
@@ -36,7 +37,8 @@ public class ImplementationFinder {
 			String classname = mockinitinfo.getClassName();
 			MockInfo mockinfo = (MockInfo) pattern.get(1);
 			String methodname = mockinfo.getMethod();
-			SearchKey key = new SearchKey(classname, methodname);
+			String fieldname = mockinfo.getField();
+			SearchKey key = new SearchKey(classname, methodname, fieldname);
 			if(InList(key) == true)
 				continue;
 			

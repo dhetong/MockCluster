@@ -3,10 +3,12 @@ package implementationfinder;
 public class SearchKey {
 	private String classname;
 	private String methodname;
+	private String fieldname;
 	
-	public SearchKey(String cname, String mname) {
+	public SearchKey(String cname, String mname, String field) {
 		classname = cname;
 		methodname = mname;
+		fieldname = field;
 	}
 	
 	public void InitClass(String name) {
@@ -23,5 +25,9 @@ public class SearchKey {
 	
 	public String getMethodName() {
 		return methodname;
+	}
+	
+	public String getFieldName() {
+		return fieldname;
 	}
 }

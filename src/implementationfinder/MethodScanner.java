@@ -7,7 +7,10 @@ import java.util.regex.Pattern;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Block;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -89,8 +92,25 @@ public class MethodScanner extends ASTVisitor {
 			
 			Pattern invokedpattern = Pattern.compile(invoked);
 			Matcher invokedmatcher = invokedpattern.matcher(s.toString());
+			if(invokedmatcher.find() && 
+					!s.toString().contains("when") && 
+					!s.toString().contains("assert")) {
+				if(s instanceof ExpressionStatement) {
+				}
+				else if(s instanceof ReturnStatement) {
+				}
+				else if(s instanceof VariableDeclarationStatement){
+				}
+				else if(s instanceof IfStatement){
+				}
+				else {
+					System.out.println(varname);
+					System.out.println(methodname);
+					System.out.println(s.toString());
+					System.out.println("--------------------------------------");
+				}
+			}
 		}
-		
 		return flag;
 	}
 	
@@ -101,6 +121,7 @@ public class MethodScanner extends ASTVisitor {
 		
 		List<Statement> stmtlist = node.getBody().statements();
 		for(Statement s:stmtlist) {
+			InvokedMatcher(s);
 		}
 	}
 	
@@ -110,6 +131,7 @@ public class MethodScanner extends ASTVisitor {
 	
 	public boolean visit(MethodDeclaration node) {
 		VarFinder(node);
+		StatementFinder(node);
 		return super.visit(node);
 	}
 }
