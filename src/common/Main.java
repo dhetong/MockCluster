@@ -56,8 +56,8 @@ public class Main {
 			linker.ObjectValueMatcher(stmtdict, paradict, fieldstmtlist);
 			
 			finder.UpdateKeyList(linker.getSimplePattern());
-			finder.UpdateKeyList(linker.getObjectPattern());
-			finder.UpdateKeyList(linker.getMockPattern());
+//			finder.UpdateKeyList(linker.getObjectPattern());
+//			finder.UpdateKeyList(linker.getMockPattern());
 			
 //			CSVWriter writer = new CSVWriter();
 //			writer.WriteSimpleFile(linker.getSimplePattern(), file.toString());

@@ -8,6 +8,8 @@ import patternnodeinfo.Info;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
 
+//need to consider the impact of mocking pattern
+
 public class ImplementationFinder {
 	private List<SearchKey> keylist = new ArrayList<>();
 	
