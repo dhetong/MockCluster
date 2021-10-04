@@ -7,14 +7,20 @@ import java.util.regex.Pattern;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Block;
+import org.eclipse.jdt.core.dom.EnhancedForStatement;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.ForStatement;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.SwitchStatement;
+import org.eclipse.jdt.core.dom.SynchronizedStatement;
+import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
+import org.eclipse.jdt.core.dom.WhileStatement;
 
 //need to consider the impact of mocking pattern
 
@@ -44,6 +50,11 @@ public class MethodScanner extends ASTVisitor {
 		return methodlist;
 	}
 	
+	private List<String> ExtractMethodName_withfield(Statement s){
+		List<String> methodlist = new ArrayList<>();
+		return methodlist;
+	}
+	
 	private String ExtractVarName(List fraglist) {
 		String varname = null;
 		
@@ -56,6 +67,16 @@ public class MethodScanner extends ASTVisitor {
 		}
 		
 		return varname;
+	}
+	
+	private boolean InVarList(SearchKeyVar key) {
+		boolean flag = false;
+		for(SearchKeyVar k:varkeylist) {
+			if(k.getVarName().equals(key.getVarName()) && 
+					k.getMethodName().equals(key.getMethodName()))
+				flag = true;
+		}
+		return flag;
 	}
 	
 	private void VarFinder(MethodDeclaration node) {
@@ -77,7 +98,8 @@ public class MethodScanner extends ASTVisitor {
 			
 			for(int i = 0;i < methodlist.size();i++) {
 				SearchKeyVar key = new SearchKeyVar(varname, methodlist.get(i));
-				varkeylist.add(key);
+				if(InVarList(key) == false)
+					varkeylist.add(key);
 			}
 		}
 	}
@@ -96,12 +118,61 @@ public class MethodScanner extends ASTVisitor {
 					!s.toString().contains("when") && 
 					!s.toString().contains("assert")) {
 				if(s instanceof ExpressionStatement) {
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					s.accept(invokedvisitor);
 				}
 				else if(s instanceof ReturnStatement) {
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					s.accept(invokedvisitor);
 				}
 				else if(s instanceof VariableDeclarationStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					s.accept(invokedvisitor);
 				}
 				else if(s instanceof IfStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					System.out.println(s.toString());
+//					s.accept(invokedvisitor);
+				}
+				else if(s instanceof ForStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					System.out.println(s.toString());
+//					s.accept(invokedvisitor);
+				}
+				else if(s instanceof EnhancedForStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					System.out.println(s.toString());
+//					s.accept(invokedvisitor);
+				}
+				else if(s instanceof TryStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					System.out.println(s.toString());
+//					s.accept(invokedvisitor);
+				}
+				else if(s instanceof SwitchStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					System.out.println(s.toString());
+//					s.accept(invokedvisitor);
+				}
+				else if(s instanceof WhileStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					System.out.println(s.toString());
+//					s.accept(invokedvisitor);
+				}
+				else if(s instanceof SynchronizedStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, s);
+//					System.out.println(s.toString());
+//					s.accept(invokedvisitor);
 				}
 				else {
 					System.out.println(varname);
