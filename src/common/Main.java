@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jface.text.Document;
 
 import handler.FieldVisitor;
 import handler.MethodVisitor;
@@ -68,9 +70,11 @@ public class Main {
 		for(File file: files) {
 			JavaToAST jdt = new JavaToAST();
 			CompilationUnit cunit = jdt.getCompilationUnit(file);
+			String source = FileUtils.readFileToString(file);
+			Document document = new Document(source);
 			
-			MethodScanner scanner = new MethodScanner(finder);
-			cunit.accept(scanner);
+//			MethodScanner scanner = new MethodScanner(finder);
+//			cunit.accept(scanner);
 		}
 	}
 }
