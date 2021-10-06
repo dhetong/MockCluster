@@ -28,6 +28,8 @@ public class MethodScanner extends ASTVisitor {
 	private ImplementationFinder finder;
 	private List<SearchKeyVar> varkeylist = new ArrayList<>();
 	
+	private List<InsertPosInfo> insertposlist = new ArrayList<>();
+	
 	private List<String> ExtractMethodName(Statement s){
 		List<String> methodlist = new ArrayList<>();
 		
@@ -118,61 +120,124 @@ public class MethodScanner extends ASTVisitor {
 					!s.toString().contains("when") && 
 					!s.toString().contains("assert")) {
 				if(s instanceof ExpressionStatement) {
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(false);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof ReturnStatement) {
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(false);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof VariableDeclarationStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(false);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof IfStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					System.out.println(s.toString());
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(true);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof ForStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					System.out.println(s.toString());
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(false);
+						listtmp.get(index).InitBefore(true);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof EnhancedForStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					System.out.println(s.toString());
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(false);
+						listtmp.get(index).InitBefore(true);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof TryStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					System.out.println(s.toString());
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(false);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof SwitchStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					System.out.println(s.toString());
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(false);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof WhileStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					System.out.println(s.toString());
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(true);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else if(s instanceof SynchronizedStatement){
-//					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, s);
-//					System.out.println(s.toString());
-//					s.accept(invokedvisitor);
+					MethodInvocationVisitor invokedvisitor = 
+							new MethodInvocationVisitor(varname, methodname, s);
+					s.accept(invokedvisitor);
+					
+					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+					for(int index  = 0;index < listtmp.size();index++) {
+						listtmp.get(index).InitAfter(true);
+						listtmp.get(index).InitBefore(false);
+					}					
+					insertposlist.addAll(listtmp);
 				}
 				else {
 					System.out.println(varname);
@@ -198,6 +263,10 @@ public class MethodScanner extends ASTVisitor {
 	
 	public MethodScanner(ImplementationFinder f) {
 		finder = f;
+	}
+	
+	public List<InsertPosInfo> getInsertInfo(){
+		return insertposlist;
 	}
 	
 	public boolean visit(MethodDeclaration node) {

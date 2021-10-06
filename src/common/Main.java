@@ -17,6 +17,7 @@ import org.eclipse.jface.text.Document;
 import handler.FieldVisitor;
 import handler.MethodVisitor;
 import implementationfinder.ImplementationFinder;
+import implementationfinder.InsertPosInfo;
 import implementationfinder.MethodScanner;
 import output.CSVWriter;
 import patternnodeinfo.MockInfo;
@@ -73,8 +74,9 @@ public class Main {
 			String source = FileUtils.readFileToString(file);
 			Document document = new Document(source);
 			
-//			MethodScanner scanner = new MethodScanner(finder);
-//			cunit.accept(scanner);
+			MethodScanner scanner = new MethodScanner(finder);
+			cunit.accept(scanner);
+			List<InsertPosInfo> insertposlist = scanner.getInsertInfo();
 		}
 	}
 }
