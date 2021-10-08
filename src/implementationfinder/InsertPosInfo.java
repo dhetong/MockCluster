@@ -29,4 +29,28 @@ public class InsertPosInfo {
 	public void InitAfter(boolean a) {
 		insertafter = a;
 	}
+	
+	public Statement getInsertPos() {
+		return stmt;
+	}
+	
+	public MethodInvocation getInsertContent() {
+		return invoked;
+	}
+	
+	public boolean getAfter() {
+		return insertafter;
+	}
+	
+	public boolean getBefore() {
+		return insertbefore;
+	}
+	
+	public void UpdateClassName(String cname) {
+		classname = cname;
+	}
+	
+	public String getClassName() {
+		return classname;
+	}
 }

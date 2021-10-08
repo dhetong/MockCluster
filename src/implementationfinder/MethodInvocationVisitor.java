@@ -11,14 +11,16 @@ import org.eclipse.jdt.core.dom.Statement;
 public class MethodInvocationVisitor extends ASTVisitor {
 	private String varname;
 	private String methodname;
+	private String classname;
 	
 	private Statement stmt;
 	
 	private List<InsertPosInfo> insertposlist = new ArrayList<>();
 	
-	public MethodInvocationVisitor(String vname, String mname, Statement s) {
+	public MethodInvocationVisitor(String vname, String mname, String cname, Statement s) {
 		varname = vname;
 		methodname = mname;
+		classname = cname;
 		stmt = s;
 	}
 	
@@ -43,6 +45,7 @@ public class MethodInvocationVisitor extends ASTVisitor {
 				
 				InsertPosInfo insertpos = 
 						new InsertPosInfo((Statement)stmtparent, invoked);
+				insertpos.UpdateClassName(classname);
 				insertposlist.add(insertpos);
 			}
 		}

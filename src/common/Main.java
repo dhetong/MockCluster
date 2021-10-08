@@ -20,6 +20,7 @@ import implementationfinder.ImplementationFinder;
 import implementationfinder.InsertPosInfo;
 import implementationfinder.MethodScanner;
 import output.CSVWriter;
+import output.LogInserter;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
 
@@ -77,6 +78,9 @@ public class Main {
 			MethodScanner scanner = new MethodScanner(finder);
 			cunit.accept(scanner);
 			List<InsertPosInfo> insertposlist = scanner.getInsertInfo();
+			
+			LogInserter inserter = new LogInserter();
+			inserter.RewriteFile(cunit, file, insertposlist);
 		}
 	}
 }
