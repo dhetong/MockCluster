@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.InfixExpression;
 import org.eclipse.jdt.core.dom.InfixExpression.Operator;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -19,11 +20,11 @@ import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jface.text.Document;
+import org.eclipse.text.edits.TextEdit;
 
 import implementationfinder.InsertPosInfo;
 
 public class LogInserter {	
-	private Document document;
 	private AST ast;
 
 	private ListRewrite lrw;
@@ -65,7 +66,7 @@ public class LogInserter {
 		return invokedpartargs;
 	}
 	
-	public void RewriteFile(CompilationUnit cunit, File file, List<InsertPosInfo> insertinfolist){
+	public void RewriteFile(CompilationUnit cunit, File file, Document document, List<InsertPosInfo> insertinfolist){
 		ASTRewrite rewriter = ASTRewrite.create(ast);
 		
 		for(InsertPosInfo info:insertinfolist) {
@@ -93,10 +94,28 @@ public class LogInserter {
 			arg.setLeftOperand(strpart);
 			arg.setRightOperand(invokedpart);
 			insertinvocation.arguments().add(arg);
+			ExpressionStatement printstatement = ast.newExpressionStatement(insertinvocation);
 			
-			System.out.println(insertinvocation.toString());
+			Block block = info.getInsertBlock();
+			if (block == null  || block.statements().size()==0) {
+				System.out.println("error");
+		    	continue;
+			}
 			
-//			System.out.println("Usage of " + name + method + c + ": " + n.m());
+			ListRewrite listrewrite = rewriter.getListRewrite(block, Block.STATEMENTS_PROPERTY);
+			
+			System.out.println(block.toString());
+			System.out.println(info.getInsertPos().toString());
+			System.out.println("------------------------------------");
+			//switch Statement, 3 cases
+			
+			if(info.getAfter() == true)
+				listrewrite.insertAfter(printstatement, info.getInsertPos(), null);
+			
+			if(info.getBefore() == true)
+				listrewrite.insertBefore(printstatement, info.getInsertPos(), null);
 		}
+		
+		TextEdit edits = rewriter.rewriteAST(document,null);
 	}
 }

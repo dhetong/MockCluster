@@ -118,7 +118,7 @@ public class MethodScanner extends ASTVisitor {
 		return flag;
 	}
 	
-	private boolean InvokedMatcher(Statement s) {
+	private boolean InvokedMatcher(Statement s, MethodDeclaration node) {
 		boolean flag = false;
 		
 		for(SearchKeyVar key:varkeylist) {
@@ -147,6 +147,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -165,6 +167,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -183,6 +187,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -201,6 +207,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -219,6 +227,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -237,6 +247,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -255,27 +267,31 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
-				else if(s instanceof SwitchStatement){
-					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
-					s.accept(invokedvisitor);
-					
-					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
-					for(int index  = 0;index < listtmp.size();index++) {
-						if(this.ParentStmtType(listtmp.get(index))) {
-							listtmp.get(index).InitAfter(true);
-							listtmp.get(index).InitBefore(false);
-						}
-						else {
-							listtmp.get(index).InitAfter(false);
-							listtmp.get(index).InitBefore(true);
-						}
-					}					
-					insertposlist.addAll(listtmp);
-				}
+//				else if(s instanceof SwitchStatement){
+//					MethodInvocationVisitor invokedvisitor = 
+//							new MethodInvocationVisitor(varname, methodname, classname, s);
+//					s.accept(invokedvisitor);
+//					
+//					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
+//					for(int index  = 0;index < listtmp.size();index++) {
+//						if(this.ParentStmtType(listtmp.get(index))) {
+//							listtmp.get(index).InitAfter(true);
+//							listtmp.get(index).InitBefore(false);
+//						}
+//						else {
+//							listtmp.get(index).InitAfter(false);
+//							listtmp.get(index).InitBefore(true);
+//						}
+//						
+//						listtmp.get(index).InitMethodDec(node);
+//					}					
+//					insertposlist.addAll(listtmp);
+//				}
 				else if(s instanceof WhileStatement){
 					MethodInvocationVisitor invokedvisitor = 
 							new MethodInvocationVisitor(varname, methodname, classname, s);
@@ -291,6 +307,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -309,6 +327,8 @@ public class MethodScanner extends ASTVisitor {
 							listtmp.get(index).InitAfter(false);
 							listtmp.get(index).InitBefore(true);
 						}
+						
+						listtmp.get(index).InitMethodDec(node);
 					}					
 					insertposlist.addAll(listtmp);
 				}
@@ -330,7 +350,7 @@ public class MethodScanner extends ASTVisitor {
 		
 		List<Statement> stmtlist = node.getBody().statements();
 		for(Statement s:stmtlist) {
-			InvokedMatcher(s);
+			InvokedMatcher(s, node);
 		}
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Statement;
 
@@ -31,6 +32,13 @@ public class MethodInvocationVisitor extends ASTVisitor {
 			return getStmtParent(node.getParent());
 	}
 	
+	private ASTNode getBlockParent(ASTNode node) {
+		if(node instanceof Block)
+			return node;
+		else
+			return getBlockParent(node.getParent());
+	}
+	
 	public List<InsertPosInfo> getInsertPos(){
 		return insertposlist;
 	}
@@ -40,11 +48,13 @@ public class MethodInvocationVisitor extends ASTVisitor {
 			String mname = node.getName().toString();
 			String vname = node.getExpression().toString();
 			if(methodname.equals(mname) && varname.equals(vname)) {
+				ASTNode blockparent = getBlockParent(node);
+				
 				ASTNode stmtparent = getStmtParent(node);
 				MethodInvocation invoked = node;
 				
 				InsertPosInfo insertpos = 
-						new InsertPosInfo((Statement)stmtparent, invoked);
+						new InsertPosInfo((Statement)stmtparent, invoked, (Block)blockparent);
 				insertpos.UpdateClassName(classname);
 				insertposlist.add(insertpos);
 			}
