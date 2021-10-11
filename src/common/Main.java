@@ -79,7 +79,7 @@ public class Main {
 			cunit.accept(scanner);
 			List<InsertPosInfo> insertposlist = scanner.getInsertInfo();
 			
-			LogInserter inserter = new LogInserter();
+			LogInserter inserter = new LogInserter(cunit);
 			inserter.RewriteFile(cunit, file, insertposlist);
 		}
 	}
