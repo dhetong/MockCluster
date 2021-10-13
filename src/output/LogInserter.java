@@ -66,6 +66,19 @@ public class LogInserter {
 				arg.arguments().addAll(ciargs);
 				invokedpartargs.add(arg);
 			}
+			else if(args.get(index) instanceof MethodInvocation){
+				MethodInvocation arg = ast.newMethodInvocation();
+				String vname = ((MethodInvocation)args.get(index)).getExpression().toString();
+				SimpleName v = ast.newSimpleName(vname);
+				String mname = ((MethodInvocation)args.get(index)).getName().toString();
+				SimpleName m = ast.newSimpleName(mname);
+				arg.setExpression(v);
+				arg.setName(m);
+				
+				List miargs = ArgExtractor(((MethodInvocation)args.get(index)).arguments());
+				arg.arguments().addAll(miargs);
+				invokedpartargs.add(arg);
+			}
 			else {
 				System.out.println(args.get(index).toString());
 			}
@@ -86,7 +99,7 @@ public class LogInserter {
 			insertinvocation.setName(ast.newSimpleName("println"));
 			//initialize string part of print argument
 			MethodInvocation m_invoked = info.getInsertContent();
-			String strpartcontent = "<" + info.getClassName() + "||"
+			String strpartcontent = "<[" + info.getClassName() + "||"
 					+ m_invoked.getExpression().toString() + "||"
 					+ m_invoked.getName().toString() + "||";
 			StringLiteral strpart = ast.newStringLiteral();
@@ -105,30 +118,37 @@ public class LogInserter {
 			insertinvocation.arguments().add(arg);
 			ExpressionStatement printstatement = ast.newExpressionStatement(insertinvocation);
 			
-			TryStatement trystmt = ast.newTryStatement();
-			//initialize NullPointerException
-			CatchClause exceptionpart = ast.newCatchClause();
-			SingleVariableDeclaration catcharg = ast.newSingleVariableDeclaration();
-			QualifiedName exceptionname = ast.newQualifiedName(ast.newSimpleName("java"), ast.newSimpleName("lang"));
-			exceptionname.setName(ast.newSimpleName("NullPointerException"));
-			SimpleType exceptiontype = ast.newSimpleType(exceptionname);
-			SimpleName ename = ast.newSimpleName("e");
-			catcharg.setType(exceptiontype);
-			catcharg.setName(ename);
-			exceptionpart.setException(catcharg);
-			//initialize null print statement
-			MethodInvocation nullprint = ast.newMethodInvocation();
-			QualifiedName nullqName = 
-					ast.newQualifiedName(ast.newSimpleName("System"), ast.newSimpleName("out"));
-			nullprint.setExpression(nullqName);
-			nullprint.setName(ast.newSimpleName("println"));
+//			System.out.println(printstatement.toString());
 			
-			try {
-				System.out.println(arg);
-			}
-			catch (java.lang.NullPointerException e) {
-				System.out.println("Return Value is Null");
-			}
+//			TryStatement trystmt = ast.newTryStatement();
+//			//initialize NullPointerException
+//			CatchClause exceptionpart = ast.newCatchClause();
+//			SingleVariableDeclaration catcharg = ast.newSingleVariableDeclaration();
+//			QualifiedName exceptionname = ast.newQualifiedName(ast.newSimpleName("java"), ast.newSimpleName("lang"));
+//			exceptionname.setName(ast.newSimpleName("NullPointerException"));
+//			SimpleType exceptiontype = ast.newSimpleType(exceptionname);
+//			SimpleName ename = ast.newSimpleName("e");
+//			catcharg.setType(exceptiontype);
+//			catcharg.setName(ename);
+//			exceptionpart.setException(catcharg);
+//			//initialize null print statement
+//			MethodInvocation nullprintstmt = ast.newMethodInvocation();
+//			QualifiedName nullqName = 
+//					ast.newQualifiedName(ast.newSimpleName("System"), ast.newSimpleName("out"));
+//			nullprintstmt.setExpression(nullqName);
+//			nullprintstmt.setName(ast.newSimpleName("println"));
+//			StringLiteral nullprintarg = ast.newStringLiteral();
+//			nullprintarg.setLiteralValue("<[Return Value is Null]>");
+//			nullprintstmt.arguments().add(nullprintarg);
+//			//initialize catch part of try statement
+//			Block nullpart = ast.newBlock();
+//			nullpart.statements().add(nullprintstmt);
+//			exceptionpart.setBody(nullpart);
+//			trystmt.catchClauses().add(exceptionpart);
+//			//initialize try part of try statement
+//			Block printpart = ast.newBlock();
+//			printpart.statements().add(printstatement);
+//			trystmt.setBody(printpart);
 			
 //			MethodInvocation ifinvokedpart = ast.newMethodInvocation();
 //			ifinvokedpart.setExpression(ast.newSimpleName(m_invoked.getExpression().toString()));
@@ -160,22 +180,19 @@ public class LogInserter {
 //			if(info.getAfter() == true)
 //				listrewrite.insertAfter(printstatement, info.getInsertPos(), null);
 			
-			listrewrite.insertBefore(printstatement, info.getInsertPos(), null);
+//			listrewrite.insertBefore(printstatement, info.getInsertPos(), null);
 		}
 		
 		TextEdit edits = rewriter.rewriteAST(document,null);
 		try {
 			edits.apply(document);
 			if(edits.getLength() > 0) {
-				FileUtils.write(file, document.get());
+//				FileUtils.write(file, document.get());
 			}
 		} catch (MalformedTreeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
