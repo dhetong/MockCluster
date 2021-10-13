@@ -118,37 +118,36 @@ public class LogInserter {
 			insertinvocation.arguments().add(arg);
 			ExpressionStatement printstatement = ast.newExpressionStatement(insertinvocation);
 			
-//			System.out.println(printstatement.toString());
-			
-//			TryStatement trystmt = ast.newTryStatement();
-//			//initialize NullPointerException
-//			CatchClause exceptionpart = ast.newCatchClause();
-//			SingleVariableDeclaration catcharg = ast.newSingleVariableDeclaration();
-//			QualifiedName exceptionname = ast.newQualifiedName(ast.newSimpleName("java"), ast.newSimpleName("lang"));
-//			exceptionname.setName(ast.newSimpleName("NullPointerException"));
-//			SimpleType exceptiontype = ast.newSimpleType(exceptionname);
-//			SimpleName ename = ast.newSimpleName("e");
-//			catcharg.setType(exceptiontype);
-//			catcharg.setName(ename);
-//			exceptionpart.setException(catcharg);
-//			//initialize null print statement
-//			MethodInvocation nullprintstmt = ast.newMethodInvocation();
-//			QualifiedName nullqName = 
-//					ast.newQualifiedName(ast.newSimpleName("System"), ast.newSimpleName("out"));
-//			nullprintstmt.setExpression(nullqName);
-//			nullprintstmt.setName(ast.newSimpleName("println"));
-//			StringLiteral nullprintarg = ast.newStringLiteral();
-//			nullprintarg.setLiteralValue("<[Return Value is Null]>");
-//			nullprintstmt.arguments().add(nullprintarg);
-//			//initialize catch part of try statement
-//			Block nullpart = ast.newBlock();
-//			nullpart.statements().add(nullprintstmt);
-//			exceptionpart.setBody(nullpart);
-//			trystmt.catchClauses().add(exceptionpart);
-//			//initialize try part of try statement
-//			Block printpart = ast.newBlock();
-//			printpart.statements().add(printstatement);
-//			trystmt.setBody(printpart);
+			TryStatement trystmt = ast.newTryStatement();
+			//initialize NullPointerException
+			CatchClause exceptionpart = ast.newCatchClause();
+			SingleVariableDeclaration catcharg = ast.newSingleVariableDeclaration();
+			QualifiedName exceptionname = ast.newQualifiedName(ast.newSimpleName("java"), ast.newSimpleName("lang"));
+			exceptionname.setName(ast.newSimpleName("NullPointerException"));
+			SimpleType exceptiontype = ast.newSimpleType(exceptionname);
+			SimpleName ename = ast.newSimpleName("e");
+			catcharg.setType(exceptiontype);
+			catcharg.setName(ename);
+			exceptionpart.setException(catcharg);
+			//initialize null print statement
+			MethodInvocation nullprint = ast.newMethodInvocation();
+			QualifiedName nullqName = 
+					ast.newQualifiedName(ast.newSimpleName("System"), ast.newSimpleName("out"));
+			nullprint.setExpression(nullqName);
+			nullprint.setName(ast.newSimpleName("println"));
+			StringLiteral nullprintarg = ast.newStringLiteral();
+			nullprintarg.setLiteralValue("<[Return Value is Null]>");
+			nullprint.arguments().add(nullprintarg);
+			ExpressionStatement nullprintstmt = ast.newExpressionStatement(nullprint);
+			//initialize catch part of try statement
+			Block nullpart = ast.newBlock();
+			nullpart.statements().add(nullprintstmt);
+			exceptionpart.setBody(nullpart);
+			trystmt.catchClauses().add(exceptionpart);
+			//initialize try part of try statement
+			Block printpart = ast.newBlock();
+			printpart.statements().add(printstatement);
+			trystmt.setBody(printpart);
 			
 //			MethodInvocation ifinvokedpart = ast.newMethodInvocation();
 //			ifinvokedpart.setExpression(ast.newSimpleName(m_invoked.getExpression().toString()));
