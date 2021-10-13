@@ -122,8 +122,10 @@ public class LogInserter {
 			//initialize NullPointerException
 			CatchClause exceptionpart = ast.newCatchClause();
 			SingleVariableDeclaration catcharg = ast.newSingleVariableDeclaration();
-			QualifiedName exceptionname = ast.newQualifiedName(ast.newSimpleName("java"), ast.newSimpleName("lang"));
-			exceptionname.setName(ast.newSimpleName("NullPointerException"));
+			QualifiedName packageinfo = 
+					ast.newQualifiedName(ast.newSimpleName("java"), ast.newSimpleName("lang"));
+			QualifiedName exceptionname = 
+					ast.newQualifiedName(packageinfo, ast.newSimpleName("NullPointerException"));
 			SimpleType exceptiontype = ast.newSimpleType(exceptionname);
 			SimpleName ename = ast.newSimpleName("e");
 			catcharg.setType(exceptiontype);
@@ -148,6 +150,15 @@ public class LogInserter {
 			Block printpart = ast.newBlock();
 			printpart.statements().add(printstatement);
 			trystmt.setBody(printpart);
+			
+			System.out.println(trystmt.toString());
+			
+//			try {
+//				System.out.println(trystmt.toString());
+//			}
+//			catch(java.lang.NullPointerException e) {
+//				System.out.println(e);
+//			}
 			
 //			MethodInvocation ifinvokedpart = ast.newMethodInvocation();
 //			ifinvokedpart.setExpression(ast.newSimpleName(m_invoked.getExpression().toString()));
@@ -179,7 +190,7 @@ public class LogInserter {
 //			if(info.getAfter() == true)
 //				listrewrite.insertAfter(printstatement, info.getInsertPos(), null);
 			
-//			listrewrite.insertBefore(printstatement, info.getInsertPos(), null);
+			listrewrite.insertBefore(trystmt, info.getInsertPos(), null);
 		}
 		
 		TextEdit edits = rewriter.rewriteAST(document,null);
