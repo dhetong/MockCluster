@@ -333,10 +333,10 @@ public class MethodScanner extends ASTVisitor {
 					insertposlist.addAll(listtmp);
 				}
 				else {
-					System.out.println(varname);
-					System.out.println(methodname);
-					System.out.println(s.toString());
-					System.out.println("--------------------------------------");
+//					System.out.println(varname);
+//					System.out.println(methodname);
+//					System.out.println(s.toString());
+//					System.out.println("--------------------------------------");
 				}
 			}
 		}
