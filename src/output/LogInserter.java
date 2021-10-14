@@ -51,7 +51,7 @@ public class LogInserter {
 			}
 			else if(args.get(index) instanceof StringLiteral){
 				StringLiteral arg = ast.newStringLiteral();
-				arg.setLiteralValue(args.get(index).toString());
+				arg.setLiteralValue(((StringLiteral)args.get(index)).getLiteralValue());
 				invokedpartargs.add(arg);
 			}
 			else if(args.get(index) instanceof ClassInstanceCreation){
@@ -127,7 +127,7 @@ public class LogInserter {
 			QualifiedName exceptionname = 
 					ast.newQualifiedName(packageinfo, ast.newSimpleName("NullPointerException"));
 			SimpleType exceptiontype = ast.newSimpleType(exceptionname);
-			SimpleName ename = ast.newSimpleName("e");
+			SimpleName ename = ast.newSimpleName("e_logger");
 			catcharg.setType(exceptiontype);
 			catcharg.setName(ename);
 			exceptionpart.setException(catcharg);
@@ -150,8 +150,6 @@ public class LogInserter {
 			Block printpart = ast.newBlock();
 			printpart.statements().add(printstatement);
 			trystmt.setBody(printpart);
-			
-			System.out.println(trystmt.toString());
 			
 //			try {
 //				System.out.println(trystmt.toString());
@@ -197,12 +195,16 @@ public class LogInserter {
 		try {
 			edits.apply(document);
 			if(edits.getLength() > 0) {
-//				FileUtils.write(file, document.get());
+				FileUtils.write(file, document.get());
 			}
 		} catch (MalformedTreeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
