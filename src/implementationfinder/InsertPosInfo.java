@@ -22,6 +22,8 @@ public class InsertPosInfo {
 	private boolean insertafter;
 	private boolean insertbefore;
 	
+	private String returntype;
+	
 	public InsertPosInfo(Statement s, MethodInvocation m, Block b) {
 		stmt = s;
 		invoked = m;
@@ -70,5 +72,13 @@ public class InsertPosInfo {
 	
 	public Block getInsertBlock() {
 		return insertblock;
+	}
+	
+	public void InitReturnType(String type) {
+		returntype = type;
+	}
+	
+	public String getReturnType() {
+		return returntype;
 	}
 }

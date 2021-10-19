@@ -99,9 +99,10 @@ public class LogInserter {
 			insertinvocation.setName(ast.newSimpleName("println"));
 			//initialize string part of print argument
 			MethodInvocation m_invoked = info.getInsertContent();
-			String strpartcontent = "<[" + info.getClassName() + "||"
+			String strpartcontent = "DHTLOGINFO||" + info.getClassName() + "||"
 					+ m_invoked.getExpression().toString() + "||"
-					+ m_invoked.getName().toString() + "||";
+					+ m_invoked.getName().toString() + "||"
+					+ info.getReturnType() + "||";
 			StringLiteral strpart = ast.newStringLiteral();
 			strpart.setLiteralValue(strpartcontent);
 			//initialize invoked method part of print argument
@@ -138,7 +139,12 @@ public class LogInserter {
 			nullprint.setExpression(nullqName);
 			nullprint.setName(ast.newSimpleName("println"));
 			StringLiteral nullprintarg = ast.newStringLiteral();
-			nullprintarg.setLiteralValue("<[Return Value is Null]>");
+			String nullstrpartcontent = "DHTLOGINFO||" + info.getClassName() + "||"
+					+ m_invoked.getExpression().toString() + "||"
+					+ m_invoked.getName().toString() + "||"
+					+ info.getReturnType() + "||"
+					+ "Null";
+			nullprintarg.setLiteralValue(nullstrpartcontent);
 			nullprint.arguments().add(nullprintarg);
 			ExpressionStatement nullprintstmt = ast.newExpressionStatement(nullprint);
 			//initialize catch part of try statement

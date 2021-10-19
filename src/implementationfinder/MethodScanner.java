@@ -30,8 +30,12 @@ public class MethodScanner extends ASTVisitor {
 	
 	private List<InsertPosInfo> insertposlist = new ArrayList<>();
 	
-	private List<String> ExtractMethodName(Statement s){
-		List<String> methodlist = new ArrayList<>();
+	private List<String> methodlist = new ArrayList<>();
+	private List<String> typelist = new ArrayList<>();
+	
+	private void ExtractMethodName(Statement s){
+		methodlist.clear();
+		typelist.clear();
 		
 		if(s instanceof VariableDeclarationStatement) {
 			Pattern PatternMock = Pattern.compile("mock\\("); //remove the mock declaration statement
@@ -44,12 +48,12 @@ public class MethodScanner extends ASTVisitor {
 					if(type.toString().equals(classname)) {
 						String method = key.getMethodName();
 						methodlist.add(method);
+						String returntype = key.getReturnType();
+						typelist.add(returntype);
 					}
 				}
 			}
-		}
-		
-		return methodlist;
+		}		
 	}
 	
 	private List<String> ExtractMethodName_withfield(Statement s){
@@ -88,7 +92,7 @@ public class MethodScanner extends ASTVisitor {
 		
 		List<Statement> stmtlist = node.getBody().statements();
 		for(Statement s:stmtlist) {
-			List<String> methodlist = ExtractMethodName(s);
+			ExtractMethodName(s);
 			if(methodlist.size() == 0) //select the statement which declares the variable(the statement cannot be a mock pattern)
 				continue;
 			
@@ -101,6 +105,7 @@ public class MethodScanner extends ASTVisitor {
 			for(int i = 0;i < methodlist.size();i++) {
 				SearchKeyVar key = new SearchKeyVar(varname, methodlist.get(i));
 				key.UpdateClassName(classname);
+				key.UpdateReturnType(typelist.get(i));
 				if(InVarList(key) == false)
 					varkeylist.add(key);
 			}
@@ -125,6 +130,7 @@ public class MethodScanner extends ASTVisitor {
 			String varname = key.getVarName();
 			String methodname = key.getMethodName();
 			String classname = key.getClassName();
+			String returntype = key.getReturnType();
 			String invoked = varname + "\\." + methodname + "\\(";
 			
 			Pattern invokedpattern = Pattern.compile(invoked);
@@ -134,7 +140,7 @@ public class MethodScanner extends ASTVisitor {
 					!s.toString().contains("assert")) {
 				if(s instanceof ExpressionStatement) {
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -154,7 +160,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 				else if(s instanceof ReturnStatement) {
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -174,7 +180,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 				else if(s instanceof VariableDeclarationStatement){
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -194,7 +200,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 				else if(s instanceof IfStatement){
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -214,7 +220,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 				else if(s instanceof ForStatement){
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -234,7 +240,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 				else if(s instanceof EnhancedForStatement){
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -254,7 +260,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 				else if(s instanceof TryStatement){
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -274,7 +280,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 //				else if(s instanceof SwitchStatement){
 //					MethodInvocationVisitor invokedvisitor = 
-//							new MethodInvocationVisitor(varname, methodname, classname, s);
+//							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 //					s.accept(invokedvisitor);
 //					
 //					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -294,7 +300,7 @@ public class MethodScanner extends ASTVisitor {
 //				}
 				else if(s instanceof WhileStatement){
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();
@@ -314,7 +320,7 @@ public class MethodScanner extends ASTVisitor {
 				}
 				else if(s instanceof SynchronizedStatement){
 					MethodInvocationVisitor invokedvisitor = 
-							new MethodInvocationVisitor(varname, methodname, classname, s);
+							new MethodInvocationVisitor(varname, methodname, classname, returntype, s);
 					s.accept(invokedvisitor);
 					
 					List<InsertPosInfo> listtmp = invokedvisitor.getInsertPos();

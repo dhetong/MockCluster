@@ -16,12 +16,15 @@ public class MethodInvocationVisitor extends ASTVisitor {
 	
 	private Statement stmt;
 	
+	private String returntype;
+	
 	private List<InsertPosInfo> insertposlist = new ArrayList<>();
 	
-	public MethodInvocationVisitor(String vname, String mname, String cname, Statement s) {
+	public MethodInvocationVisitor(String vname, String mname, String cname, String type, Statement s) {
 		varname = vname;
 		methodname = mname;
 		classname = cname;
+		returntype = type;
 		stmt = s;
 	}
 	
@@ -56,6 +59,7 @@ public class MethodInvocationVisitor extends ASTVisitor {
 				InsertPosInfo insertpos = 
 						new InsertPosInfo((Statement)stmtparent, invoked, (Block)blockparent);
 				insertpos.UpdateClassName(classname);
+				insertpos.InitReturnType(returntype);
 				insertposlist.add(insertpos);
 			}
 		}

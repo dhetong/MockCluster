@@ -5,6 +5,8 @@ public class SearchKeyVar {
 	private String methodname;
 	private String classname;
 	
+	private String returntype;
+	
 	public SearchKeyVar(String var, String method) {
 		varname = var;
 		methodname = method;
@@ -24,5 +26,13 @@ public class SearchKeyVar {
 	
 	public String getClassName() {
 		return classname;
+	}
+	
+	public void UpdateReturnType(String type) {
+		returntype = type;
+	}
+	
+	public String getReturnType() {
+		return returntype;
 	}
 }

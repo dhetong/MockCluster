@@ -5,6 +5,8 @@ public class SearchKey {
 	private String methodname;
 	private String fieldname;
 	
+	private String returntype;
+	
 	public SearchKey(String cname, String mname, String field) {
 		classname = cname;
 		methodname = mname;
@@ -29,5 +31,13 @@ public class SearchKey {
 	
 	public String getFieldName() {
 		return fieldname;
+	}
+	
+	public void InitReturnType(String type) {
+		returntype = type;
+	}
+	
+	public String getReturnType() {
+		return returntype;
 	}
 }
