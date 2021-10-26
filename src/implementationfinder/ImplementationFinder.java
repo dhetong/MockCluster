@@ -7,7 +7,11 @@ import java.util.List;
 import patternnodeinfo.Info;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
+import patternnodeinfo.ObjectInfo;
+import patternnodeinfo.ObjectInitType;
 import patternnodeinfo.ReturnType;
+import patternnodeinfo.ParaInfo;
+import patternnodeinfo.FieldObjectInfo;
 
 //need to consider the impact of mocking pattern
 
@@ -87,6 +91,48 @@ public class ImplementationFinder {
 			SearchKey key = keylist.get(index);
 			System.out.println(key.getClassName());
 			System.out.println(key.getMethodName());
+		}
+	}
+	
+	private int HasSimple(LinkedList<Info> pattern_list) {
+		int flag = 0;		
+		int tail = pattern_list.size()-1;
+		if(pattern_list.get(tail) instanceof ObjectInfo) {
+			ObjectInfo objectinfo = (ObjectInfo) pattern_list.get(tail);
+			if(objectinfo.getInfoType() == ObjectInitType.STR_TYPE)
+				flag = 2;
+			else {
+				if(objectinfo.ArgsHasSimple())
+					flag = 1;
+			}
+		}		
+		return flag;
+	}
+	
+	public void UpdateKeyListObject(List<LinkedList> patterns) {
+		for(int index = 0;index < patterns.size();index++) {
+			LinkedList<Info> pattern = patterns.get(index);
+			
+			int flag = HasSimple(pattern);
+			if(flag == 0)
+				continue;
+			
+			int objectid = pattern.size()-1;
+			if(pattern.get(objectid) instanceof ObjectInfo) {
+				ObjectInfo objectinfo = (ObjectInfo) pattern.get(objectid);
+				if(flag == 1) {
+					//the return value is an object
+					System.out.println(objectinfo.getStmt_ast().toString());
+				}
+				else {
+					//the return value is a String
+					System.out.println(objectinfo.getStmt());
+					System.out.println(objectinfo.getContent());
+				}
+			}
+			else {
+				System.out.println("ERROR");
+			}
 		}
 	}
 }

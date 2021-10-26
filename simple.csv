@@ -1,357 +1,111 @@
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/configuration/server/SyntheticNodeDataDomainProviderTest.java"
-"0","DataDomain ddMock=mock(DataDomain.class);
-when(ddMock.getName()).thenReturn(""n"");
-","testCreateSyntheticDataNodeNametestCreateSyntheticDataNodeName","13071498"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/configuration/server/DefaultDataSourceFactoryLoaderTest.java"
-"0","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_DRIVER_PROPERTY)).thenReturn(""x"");
-","testGetDataSourceFactory_UnusedPropertiestestGetDataSourceFactory_UnusedProperties","44724548"
-"1","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_URL_PROPERTY)).thenReturn(null);
-","testGetDataSourceFactory_UnusedPropertiestestGetDataSourceFactory_UnusedProperties","44724626"
-"2","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_USERNAME_PROPERTY)).thenReturn(""username"");
-","testGetDataSourceFactory_UnusedPropertiestestGetDataSourceFactory_UnusedProperties","44724702"
-"3","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_PASSWORD_PROPERTY)).thenReturn(""12345"");
-","testGetDataSourceFactory_UnusedPropertiestestGetDataSourceFactory_UnusedProperties","44724789"
-"4","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_MIN_CONNECTIONS_PROPERTY + "".X.node2"")).thenReturn(""3"");
-","testGetDataSourceFactory_UnusedPropertiestestGetDataSourceFactory_UnusedProperties","44726272"
-"5","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_PASSWORD_PROPERTY + "".X.node2"")).thenReturn(""123456"");
-","testGetDataSourceFactory_UnusedPropertiestestGetDataSourceFactory_UnusedProperties","44726372"
-"6","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_URL_PROPERTY + "".X.node3"")).thenReturn(""url"");
-","testGetDataSourceFactory_UnusedPropertiestestGetDataSourceFactory_UnusedProperties","44726681"
-"7","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_DRIVER_PROPERTY)).thenReturn(""x"");
-","testGetDataSourceFactory_PropertytestGetDataSourceFactory_Property","70287104"
-"8","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_URL_PROPERTY)).thenReturn(""y"");
-","testGetDataSourceFactory_PropertytestGetDataSourceFactory_Property","70287182"
-"9","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_URL_PROPERTY)).thenReturn(null);
-","testGetDataSourceFactory_PropertytestGetDataSourceFactory_Property","70288615"
-"10","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_URL_PROPERTY + "".X.node2"")).thenReturn(""y"");
-","testGetDataSourceFactory_PropertytestGetDataSourceFactory_Property","70288861"
-"11","final RuntimeProperties properties=mock(RuntimeProperties.class);
-when(properties.get(Constants.JDBC_URL_PROPERTY + "".X.node1"")).thenReturn(""y"");
-","testGetDataSourceFactory_PropertytestGetDataSourceFactory_Property","70289119"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/configuration/server/DefaultDbAdapterFactoryTest.java"
-"0","final DbAdapter adapter=mock(JdbcAdapter.class);
-when(adapter.createTable(any(DbEntity.class))).thenReturn(""XXXXX"");
-","testCreatedAdapter_AutotestCreatedAdapter_Auto","29533012"
-"1","final DbAdapter adapter=mock(JdbcAdapter.class);
-when(adapter.createTable(any(DbEntity.class))).thenReturn(""XXXXX"");
-","testCreatedAdapter_AutoExplicittestCreatedAdapter_AutoExplicit","88848943"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/configuration/server/DataDomainProviderTest.java"
-"0","ObjectId mockObjectId=mock(ObjectId.class);
-when(mockObjectId.getEntityName()).thenReturn(""mock-entity-name"");
-","testGettestGet","1588615940"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/types/ValueObjectTypeFactoryOrderTest.java"
-"0","tstType1=mock(ExtendedType.class);
-when(tstType1.getClassName()).thenReturn(""byte[]"");
-","setUpRegistrysetUpRegistry","16621707"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/types/ValueObjectTypeFactoryTest.java"
-"0","tstType1=mock(ExtendedType.class);
-when(tstType1.getClassName()).thenReturn(""byte[]"");
-","setUpRegistrysetUpRegistry","21722217"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/types/DefaultValueObjectTypeRegistryTest.java"
-"0","valueObjectType1=mock(ValueObjectType.class);
-when(valueObjectType1.getValueType()).thenReturn(Integer.class);
-","setUpRegistrysetUpRegistry","14391495"
-"1","valueObjectType1=mock(ValueObjectType.class);
-when(valueObjectType1.getTargetType()).thenReturn(Integer.class);
-","setUpRegistrysetUpRegistry","14391568"
-"2","valueObjectType2=mock(ValueObjectType.class);
-when(valueObjectType2.getValueType()).thenReturn(Number.class);
-","setUpRegistrysetUpRegistry","16431699"
-"3","valueObjectType2=mock(ValueObjectType.class);
-when(valueObjectType2.getTargetType()).thenReturn(Integer.class);
-","setUpRegistrysetUpRegistry","16431771"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/QualifierTest.java"
-"0","Persistent persistent=mock(Persistent.class);
-when(persistent.getPersistenceState()).thenReturn(PersistenceState.MODIFIED);
-","mockObjectmockObject","54935604"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/ValuesTest.java"
-"0","Persistent persistent=mock(Persistent.class);
-when(persistent.getPersistenceState()).thenReturn(PersistenceState.MODIFIED);
-","mockObjectmockObject","33883499"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/DbRowOpMergerTest.java"
-"0","Persistent persistent=mock(Persistent.class);
-when(persistent.getPersistenceState()).thenReturn(PersistenceState.MODIFIED);
-","mockObjectmockObject","56855796"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/BaseDbRowOpTest.java"
-"0","Persistent persistent=mock(Persistent.class);
-when(persistent.getPersistenceState()).thenReturn(PersistenceState.MODIFIED);
-","mockObjectmockObject","37603871"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/DefaultDataDomainFlushActionTest.java"
-"0","Persistent persistent=mock(Persistent.class);
-when(persistent.getPersistenceState()).thenReturn(PersistenceState.MODIFIED);
-","mockObjectmockObject","66446755"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/DefaultDbRowOpSorterTest.java"
-"0","entitySorter=mock(EntitySorter.class);
-when(entitySorter.isReflexive(argThat(ent -> ent.getName().equals(""reflexive"")))).thenReturn(true);
-","createSortercreateSorter","22402479"
-"1","Persistent persistent=mock(Persistent.class);
-when(persistent.getPersistenceState()).thenReturn(PersistenceState.MODIFIED);
-","mockObjectmockObject","84838594"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/reflect/BasePropertyTest.java"
-"0","Accessor accessor=mock(Accessor.class);
-when(accessor.getName()).thenReturn(""xyz"");
-","testGetNametestGetName","12821332"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/query/SelectQueryMetadataCacheKeyTest.java"
-"0","ValueObjectType mockType=mock(ValueObjectType.class);
-when(mockType.getValueType()).thenReturn(Double.class);
-","createObjectscreateObjects","20502114"
-"1","ValueObjectType mockType=mock(ValueObjectType.class);
-when(mockType.toCacheKey(any())).thenReturn(""<value placeholder>"");
-","createObjectscreateObjects","20502178"
-"2","ObjectId objectId1=mock(ObjectId.class);
-when(objectId1.toString()).thenReturn(""objId1"");
-","cacheKeyWithPersistentObjectcacheKeyWithPersistentObject","54915542"
-"3","ObjectId objectId2=mock(ObjectId.class);
-when(objectId2.toString()).thenReturn(""objId2"");
-","cacheKeyWithPersistentObjectcacheKeyWithPersistentObject","57205771"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-dbsync/src/test/java/org/apache/cayenne/dbsync/reverse/dbimport/DefaultDbImportActionTest.java"
-"0","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.createMergeDelegate()).thenReturn(new DefaultModelMergeDelegate());
-","testNewDataMapImporttestNewDataMapImport","51375211"
-"1","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.getDbLoaderConfig()).thenReturn(new DbLoaderConfiguration());
-","testNewDataMapImporttestNewDataMapImport","51375299"
-"2","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.getTargetDataMap()).thenReturn(new File(""xyz.map.xml""));
-","testNewDataMapImporttestNewDataMapImport","51375381"
-"3","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.createNameGenerator()).thenReturn(new DefaultObjectNameGenerator(NoStemStemmer.getInstance()));
-","testNewDataMapImporttestNewDataMapImport","51375458"
-"4","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.createMeaningfulPKFilter()).thenReturn(NamePatternMatcher.EXCLUDE_ALL);
-","testNewDataMapImporttestNewDataMapImport","51375574"
-"5","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.createMergeDelegate()).thenReturn(new DefaultModelMergeDelegate());
-","testImportWithFieldChangedtestImportWithFieldChanged","66526790"
-"6","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.getDbLoaderConfig()).thenReturn(new DbLoaderConfiguration());
-","testImportWithFieldChangedtestImportWithFieldChanged","66526878"
-"7","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.createNameGenerator()).thenReturn(new DefaultObjectNameGenerator(NoStemStemmer.getInstance()));
-","testImportWithFieldChangedtestImportWithFieldChanged","66526960"
-"8","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.createMeaningfulPKFilter()).thenReturn(NamePatternMatcher.EXCLUDE_ALL);
-","testImportWithFieldChangedtestImportWithFieldChanged","66527076"
-"9","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.createMergeDelegate()).thenReturn(new DefaultModelMergeDelegate());
-","testImportWithoutChangestestImportWithoutChanges","1003010167"
-"10","DbImportConfiguration config=mock(DbImportConfiguration.class);
-when(config.getDbLoaderConfig()).thenReturn(new DbLoaderConfiguration());
-","testImportWithoutChangestestImportWithoutChanges","1003010255"
-"11","DataMapLoader mapLoader=mock(DataMapLoader.class);
-when(mapLoader.load(any(Resource.class))).thenReturn(null);
-","testImportWithDbErrortestImportWithDbError","1198512046"
-"12","Logger log=mock(Logger.class);
-when(log.isDebugEnabled()).thenReturn(true);
-","buildDbImportActionbuildDbImportAction","1265112692"
-"13","Logger log=mock(Logger.class);
-when(log.isInfoEnabled()).thenReturn(true);
-","buildDbImportActionbuildDbImportAction","1265112745"
-"14","MergerTokenFactoryProvider mergerTokenFactoryProvider=mock(MergerTokenFactoryProvider.class);
-when(mergerTokenFactoryProvider.get((DbAdapter)any())).thenReturn(new DefaultMergerTokenFactory());
-","buildDbImportActionbuildDbImportAction","1332713431"
-"15","DbImportConfiguration params=mock(DbImportConfiguration.class);
-when(params.getCayenneProject()).thenReturn(null);
-","testSaveLoadedNoProjecttestSaveLoadedNoProject","1459214666"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-dbsync/src/test/java/org/apache/cayenne/dbsync/reverse/dbload/ExportedKeyTest.java"
-"0","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""PKTABLE_CAT"")).thenReturn(""PKCatalog"");
-","testEqualsExportedKeytestEqualsExportedKey","16951742"
-"1","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""PKTABLE_SCHEM"")).thenReturn(null);
-","testEqualsExportedKeytestEqualsExportedKey","16951810"
-"2","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""PKTABLE_NAME"")).thenReturn(""PKTable"");
-","testEqualsExportedKeytestEqualsExportedKey","16951873"
-"3","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""PKCOLUMN_NAME"")).thenReturn(""PKColumn"");
-","testEqualsExportedKeytestEqualsExportedKey","16951940"
-"4","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""PK_NAME"")).thenReturn(""PKName"");
-","testEqualsExportedKeytestEqualsExportedKey","16952009"
-"5","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""FKTABLE_CAT"")).thenReturn(""FKCatalog"");
-","testEqualsExportedKeytestEqualsExportedKey","16952071"
-"6","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""FKTABLE_SCHEM"")).thenReturn(""FKSchema"");
-","testEqualsExportedKeytestEqualsExportedKey","16952139"
-"7","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""FKTABLE_NAME"")).thenReturn(""FKTable"");
-","testEqualsExportedKeytestEqualsExportedKey","16952208"
-"8","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""FKCOLUMN_NAME"")).thenReturn(""FKColumn"");
-","testEqualsExportedKeytestEqualsExportedKey","16952275"
-"9","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getString(""FK_NAME"")).thenReturn(""FKName"");
-","testEqualsExportedKeytestEqualsExportedKey","16952344"
-"10","ResultSet rs1=mock(ResultSet.class);
-when(rs1.getShort(""KEY_SEQ"")).thenReturn((short)1);
-","testEqualsExportedKeytestEqualsExportedKey","16952406"
-"11","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""PKTABLE_CAT"")).thenReturn(""PKCatalog"");
-","testEqualsExportedKeytestEqualsExportedKey","25222569"
-"12","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""PKTABLE_SCHEM"")).thenReturn(null);
-","testEqualsExportedKeytestEqualsExportedKey","25222637"
-"13","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""PKTABLE_NAME"")).thenReturn(""PKTable"");
-","testEqualsExportedKeytestEqualsExportedKey","25222700"
-"14","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""PKCOLUMN_NAME"")).thenReturn(""PKColumn"");
-","testEqualsExportedKeytestEqualsExportedKey","25222767"
-"15","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""PK_NAME"")).thenReturn(""PKName"");
-","testEqualsExportedKeytestEqualsExportedKey","25222836"
-"16","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""FKTABLE_CAT"")).thenReturn(""FKCatalog"");
-","testEqualsExportedKeytestEqualsExportedKey","25222898"
-"17","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""FKTABLE_SCHEM"")).thenReturn(""FKSchema"");
-","testEqualsExportedKeytestEqualsExportedKey","25222966"
-"18","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""FKTABLE_NAME"")).thenReturn(""FKTable"");
-","testEqualsExportedKeytestEqualsExportedKey","25223035"
-"19","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""FKCOLUMN_NAME"")).thenReturn(""FKColumn"");
-","testEqualsExportedKeytestEqualsExportedKey","25223102"
-"20","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getString(""FK_NAME"")).thenReturn(""FKName"");
-","testEqualsExportedKeytestEqualsExportedKey","25223171"
-"21","ResultSet rs2=mock(ResultSet.class);
-when(rs2.getShort(""KEY_SEQ"")).thenReturn((short)1);
-","testEqualsExportedKeytestEqualsExportedKey","25223233"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-crypto/src/test/java/org/apache/cayenne/crypto/transformer/bytes/HmacEncryptorTest.java"
-"0","HmacEncryptor encryptor=mock(HmacEncryptor.class);
-when(encryptor.createHmac(any(byte[].class))).thenReturn(new byte[]{0,1,2,3,4,5,6,7});
-","encryptencrypt","14231547"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-crypto/src/test/java/org/apache/cayenne/crypto/transformer/bytes/DefaultBytesTransformerFactoryTest.java"
-"0","KeySource keySource=mock(KeySource.class);
-when(keySource.getDefaultKeyAlias()).thenReturn(""bla"");
-","testCreateEncryptionHeadertestCreateEncryptionHeader","16101663"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-crypto/src/test/java/org/apache/cayenne/crypto/transformer/bytes/HmacDecryptorTest.java"
-"0","HmacDecryptor decryptor=mock(HmacDecryptor.class);
-when(decryptor.createHmac(any(byte[].class))).thenReturn(new byte[]{0,1,2,3,4,5,6,7});
-","decryptdecrypt","14501574"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-crypto/src/test/java/org/apache/cayenne/crypto/transformer/value/DefaultValueTransformerFactoryIT.java"
-"0","DbAttribute fakeA1=mock(DbAttribute.class);
-when(fakeA1.getName()).thenReturn(""fake1"");
-","testGetJavaTypetestGetJavaType","31373191"
-"1","DbAttribute fakeA1=mock(DbAttribute.class);
-when(fakeA1.getType()).thenReturn(Types.VARBINARY);
-","testGetJavaTypetestGetJavaType","31373300"
-"2","DbAttribute fakeA2=mock(DbAttribute.class);
-when(fakeA2.getName()).thenReturn(""fake2"");
-","testGetJavaTypetestGetJavaType","34173471"
-"3","DbAttribute fakeA2=mock(DbAttribute.class);
-when(fakeA2.getType()).thenReturn(Types.VARCHAR);
-","testGetJavaTypetestGetJavaType","34173580"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-lifecycle/src/test/java/org/apache/cayenne/lifecycle/id/EntityIdCoderTest.java"
-"0","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""x"");
-","testSingleIntPktestSingleIntPk","28182868"
-"1","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""x"");
-","testSingleLongPktestSingleLongPk","35443594"
-"2","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""x"");
-","testSingleStringPktestSingleStringPk","42744324"
-"3","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""x"");
-","testIdEncodingtestIdEncoding","50075057"
-"4","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""x"");
-","testMixedCompoundPktestMixedCompoundPk","60676117"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-cgen/src/test/java/org/apache/cayenne/gen/ClassGenerationActionTest.java"
-"0","File file=mock(File.class);
-when(file.lastModified()).thenReturn(1000L);
-","testIsOldtestIsOld","78477879"
-"1","File file=mock(File.class);
-when(file.lastModified()).thenReturn(1000L);
-","testFileNeedUpdatetestFileNeedUpdate","81228154"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-cgen/src/test/java/org/apache/cayenne/gen/PropertyUtilsTest.java"
-"0","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""target"");
-","testImportRelationshiptestImportRelationship","38903998"
-"1","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.isToMany()).thenReturn(true);
-","testImportRelationshiptestImportRelationship","40524120"
-"2","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getCollectionType()).thenReturn(""java.util.List"");
-","testImportRelationshiptestImportRelationship","40524176"
-"3","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getTargetEntityName()).thenReturn(""target"");
-","testImportRelationshiptestImportRelationship","40524253"
-"4","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getName()).thenReturn(""list_rel"");
-","testImportRelationshiptestImportRelationship","40524324"
-"5","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""target"");
-","toOneRelationshipDefinitiontoOneRelationshipDefinition","1119911307"
-"6","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.isToMany()).thenReturn(false);
-","toOneRelationshipDefinitiontoOneRelationshipDefinition","1136111429"
-"7","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getTargetEntityName()).thenReturn(""target"");
-","toOneRelationshipDefinitiontoOneRelationshipDefinition","1136111486"
-"8","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getName()).thenReturn(""to_one_rel"");
-","toOneRelationshipDefinitiontoOneRelationshipDefinition","1136111557"
-"9","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""target"");
-","listRelationshipDefinitionlistRelationshipDefinition","1216712275"
-"10","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.isToMany()).thenReturn(true);
-","listRelationshipDefinitionlistRelationshipDefinition","1232912397"
-"11","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getCollectionType()).thenReturn(""java.util.List"");
-","listRelationshipDefinitionlistRelationshipDefinition","1232912453"
-"12","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getTargetEntityName()).thenReturn(""target"");
-","listRelationshipDefinitionlistRelationshipDefinition","1232912530"
-"13","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getName()).thenReturn(""list_rel"");
-","listRelationshipDefinitionlistRelationshipDefinition","1232912601"
-"14","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""target"");
-","setRelationshipDefinitionsetRelationshipDefinition","1319913307"
-"15","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.isToMany()).thenReturn(true);
-","setRelationshipDefinitionsetRelationshipDefinition","1336113429"
-"16","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getCollectionType()).thenReturn(""java.util.Set"");
-","setRelationshipDefinitionsetRelationshipDefinition","1336113485"
-"17","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getTargetEntityName()).thenReturn(""target"");
-","setRelationshipDefinitionsetRelationshipDefinition","1336113561"
-"18","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getName()).thenReturn(""set_rel"");
-","setRelationshipDefinitionsetRelationshipDefinition","1336113632"
-"19","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getName()).thenReturn(""target"");
-","mapRelationshipDefinitionmapRelationshipDefinition","1435514463"
-"20","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.isToMany()).thenReturn(true);
-","mapRelationshipDefinitionmapRelationshipDefinition","1458714655"
-"21","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getCollectionType()).thenReturn(""java.util.Map"");
-","mapRelationshipDefinitionmapRelationshipDefinition","1458714711"
-"22","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getMapKey()).thenReturn(""key"");
-","mapRelationshipDefinitionmapRelationshipDefinition","1458714787"
-"23","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getTargetEntityName()).thenReturn(""target"");
-","mapRelationshipDefinitionmapRelationshipDefinition","1458714845"
-"24","ObjRelationship relationship=mock(ObjRelationship.class);
-when(relationship.getName()).thenReturn(""map_rel"");
-","mapRelationshipDefinitionmapRelationshipDefinition","1458714916"
+"DataDomain","ddMock","getName","String","""n"""
+"RuntimeProperties","properties","get","String","""x"""
+"RuntimeProperties","properties","get","Null","null"
+"RuntimeProperties","properties","get","String","""username"""
+"RuntimeProperties","properties","get","String","""12345"""
+"RuntimeProperties","properties","get","String","""3"""
+"RuntimeProperties","properties","get","String","""123456"""
+"RuntimeProperties","properties","get","String","""url"""
+"RuntimeProperties","properties","get","String","""x"""
+"RuntimeProperties","properties","get","String","""y"""
+"RuntimeProperties","properties","get","Null","null"
+"RuntimeProperties","properties","get","String","""y"""
+"RuntimeProperties","properties","get","String","""y"""
+"DbAdapter","adapter","createTable","String","""XXXXX"""
+"DbAdapter","adapter","createTable","String","""XXXXX"""
+"ObjectId","mockObjectId","getEntityName","String","""mock-entity-name"""
+"ExtendedType","tstType1","getClassName","String","""byte[]"""
+"ExtendedType","tstType1","getClassName","String","""byte[]"""
+"ValueObjectType","valueObjectType1","getValueType","TypeLiteral","Integer.class"
+"ValueObjectType","valueObjectType1","getTargetType","TypeLiteral","Integer.class"
+"ValueObjectType","valueObjectType2","getValueType","TypeLiteral","Number.class"
+"ValueObjectType","valueObjectType2","getTargetType","TypeLiteral","Integer.class"
+"Persistent","persistent","getPersistenceState","QualifiedName","PersistenceState.MODIFIED"
+"Persistent","persistent","getPersistenceState","QualifiedName","PersistenceState.MODIFIED"
+"Persistent","persistent","getPersistenceState","QualifiedName","PersistenceState.MODIFIED"
+"Persistent","persistent","getPersistenceState","QualifiedName","PersistenceState.MODIFIED"
+"Persistent","persistent","getPersistenceState","QualifiedName","PersistenceState.MODIFIED"
+"EntitySorter","entitySorter","isReflexive","Boolean","true"
+"Persistent","persistent","getPersistenceState","QualifiedName","PersistenceState.MODIFIED"
+"Accessor","accessor","getName","String","""xyz"""
+"ValueObjectType","mockType","getValueType","TypeLiteral","Double.class"
+"ValueObjectType","mockType","toCacheKey","String","""<value placeholder>"""
+"ObjectId","objectId1","toString","String","""objId1"""
+"ObjectId","objectId2","toString","String","""objId2"""
+"DbImportConfiguration","config","createMergeDelegate","ClassInstanceCreation","new DefaultModelMergeDelegate()"
+"DbImportConfiguration","config","getDbLoaderConfig","ClassInstanceCreation","new DbLoaderConfiguration()"
+"DbImportConfiguration","config","getTargetDataMap","ClassInstanceCreation","new File(""xyz.map.xml"")"
+"DbImportConfiguration","config","createNameGenerator","ClassInstanceCreation","new DefaultObjectNameGenerator(NoStemStemmer.getInstance())"
+"DbImportConfiguration","config","createMeaningfulPKFilter","QualifiedName","NamePatternMatcher.EXCLUDE_ALL"
+"DbImportConfiguration","config","createMergeDelegate","ClassInstanceCreation","new DefaultModelMergeDelegate()"
+"DbImportConfiguration","config","getDbLoaderConfig","ClassInstanceCreation","new DbLoaderConfiguration()"
+"DbImportConfiguration","config","createNameGenerator","ClassInstanceCreation","new DefaultObjectNameGenerator(NoStemStemmer.getInstance())"
+"DbImportConfiguration","config","createMeaningfulPKFilter","QualifiedName","NamePatternMatcher.EXCLUDE_ALL"
+"DbImportConfiguration","config","createMergeDelegate","ClassInstanceCreation","new DefaultModelMergeDelegate()"
+"DbImportConfiguration","config","getDbLoaderConfig","ClassInstanceCreation","new DbLoaderConfiguration()"
+"DataMapLoader","mapLoader","load","Null","null"
+"Logger","log","isDebugEnabled","Boolean","true"
+"Logger","log","isInfoEnabled","Boolean","true"
+"MergerTokenFactoryProvider","mergerTokenFactoryProvider","get","ClassInstanceCreation","new DefaultMergerTokenFactory()"
+"DbImportConfiguration","params","getCayenneProject","Null","null"
+"ResultSet","rs1","getString","String","""PKCatalog"""
+"ResultSet","rs1","getString","Null","null"
+"ResultSet","rs1","getString","String","""PKTable"""
+"ResultSet","rs1","getString","String","""PKColumn"""
+"ResultSet","rs1","getString","String","""PKName"""
+"ResultSet","rs1","getString","String","""FKCatalog"""
+"ResultSet","rs1","getString","String","""FKSchema"""
+"ResultSet","rs1","getString","String","""FKTable"""
+"ResultSet","rs1","getString","String","""FKColumn"""
+"ResultSet","rs1","getString","String","""FKName"""
+"ResultSet","rs1","getShort","CastExpression","(short)1"
+"ResultSet","rs2","getString","String","""PKCatalog"""
+"ResultSet","rs2","getString","Null","null"
+"ResultSet","rs2","getString","String","""PKTable"""
+"ResultSet","rs2","getString","String","""PKColumn"""
+"ResultSet","rs2","getString","String","""PKName"""
+"ResultSet","rs2","getString","String","""FKCatalog"""
+"ResultSet","rs2","getString","String","""FKSchema"""
+"ResultSet","rs2","getString","String","""FKTable"""
+"ResultSet","rs2","getString","String","""FKColumn"""
+"ResultSet","rs2","getString","String","""FKName"""
+"ResultSet","rs2","getShort","CastExpression","(short)1"
+"HmacEncryptor","encryptor","createHmac","ArrayCreation","new byte[]{0,1,2,3,4,5,6,7}"
+"KeySource","keySource","getDefaultKeyAlias","String","""bla"""
+"HmacDecryptor","decryptor","createHmac","ArrayCreation","new byte[]{0,1,2,3,4,5,6,7}"
+"DbAttribute","fakeA1","getName","String","""fake1"""
+"DbAttribute","fakeA1","getType","QualifiedName","Types.VARBINARY"
+"DbAttribute","fakeA2","getName","String","""fake2"""
+"DbAttribute","fakeA2","getType","QualifiedName","Types.VARCHAR"
+"ObjEntity","entity","getName","String","""x"""
+"ObjEntity","entity","getName","String","""x"""
+"ObjEntity","entity","getName","String","""x"""
+"ObjEntity","entity","getName","String","""x"""
+"ObjEntity","entity","getName","String","""x"""
+"File","file","lastModified","Number","1000L"
+"File","file","lastModified","Number","1000L"
+"ObjEntity","entity","getName","String","""target"""
+"ObjRelationship","relationship","isToMany","Boolean","true"
+"ObjRelationship","relationship","getCollectionType","String","""java.util.List"""
+"ObjRelationship","relationship","getTargetEntityName","String","""target"""
+"ObjRelationship","relationship","getName","String","""list_rel"""
+"ObjEntity","entity","getName","String","""target"""
+"ObjRelationship","relationship","isToMany","Boolean","false"
+"ObjRelationship","relationship","getTargetEntityName","String","""target"""
+"ObjRelationship","relationship","getName","String","""to_one_rel"""
+"ObjEntity","entity","getName","String","""target"""
+"ObjRelationship","relationship","isToMany","Boolean","true"
+"ObjRelationship","relationship","getCollectionType","String","""java.util.List"""
+"ObjRelationship","relationship","getTargetEntityName","String","""target"""
+"ObjRelationship","relationship","getName","String","""list_rel"""
+"ObjEntity","entity","getName","String","""target"""
+"ObjRelationship","relationship","isToMany","Boolean","true"
+"ObjRelationship","relationship","getCollectionType","String","""java.util.Set"""
+"ObjRelationship","relationship","getTargetEntityName","String","""target"""
+"ObjRelationship","relationship","getName","String","""set_rel"""
+"ObjEntity","entity","getName","String","""target"""
+"ObjRelationship","relationship","isToMany","Boolean","true"
+"ObjRelationship","relationship","getCollectionType","String","""java.util.Map"""
+"ObjRelationship","relationship","getMapKey","String","""key"""
+"ObjRelationship","relationship","getTargetEntityName","String","""target"""
+"ObjRelationship","relationship","getName","String","""map_rel"""

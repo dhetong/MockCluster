@@ -3,6 +3,8 @@ package patternnodeinfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.Statement;
+
 import arginfo.ArgInfo;
 
 public class ObjectInfo extends Info {
@@ -12,6 +14,8 @@ public class ObjectInfo extends Info {
 	private String classname;
 	
 	private String field;
+	
+	private Statement stmt_ast;
 	
 	//parameter for StringLiteral
 	private String content;
@@ -118,5 +122,13 @@ public class ObjectInfo extends Info {
 	
 	public int getPosition() {
 		return position;
+	}
+	
+	public void InitStmt_ast(Statement s) {
+		stmt_ast = s;
+	}
+	
+	public Statement getStmt_ast() {
+		return stmt_ast;
 	}
 }

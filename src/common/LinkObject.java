@@ -180,9 +180,11 @@ public class LinkObject {
 							ObjectInfo objectinfo = 
 									VarDecHandler((VariableDeclarationStatement) s);
 							
+							
 							objectinfo.InitStmt(s.toString());
 							objectinfo.InitPosition(s.getStartPosition());
 							objectinfo.InitField(field);
+							objectinfo.InitStmt_ast(s);
 							objectvaluepattern.get(index).addLast(objectinfo);
 						}
 					}

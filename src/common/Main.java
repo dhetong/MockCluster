@@ -20,6 +20,7 @@ import implementationfinder.ImplementationFinder;
 import implementationfinder.InsertPosInfo;
 import implementationfinder.MethodScanner;
 import output.CSVWriter;
+import output.DetailCSVWriter;
 import output.LogInserter;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
@@ -32,6 +33,8 @@ public class Main {
 		List<File> files = walkdir.walk(Constant.TESTPROJECT);
 		
 		ImplementationFinder finder = new ImplementationFinder();
+		
+		boolean isWrite = false;
 		
 		for(File file: files) {
 			JavaToAST jdt = new JavaToAST();
@@ -59,28 +62,33 @@ public class Main {
 			linker.MockValueMather();
 			linker.ObjectValueMatcher(stmtdict, paradict, fieldstmtlist);
 			
-			finder.UpdateKeyList(linker.getSimplePattern());
-//			finder.UpdateKeyList(linker.getObjectPattern());
+//			finder.UpdateKeyList(linker.getSimplePattern());
+			finder.UpdateKeyListObject(linker.getObjectPattern());
 //			finder.UpdateKeyList(linker.getMockPattern());
 			
 //			CSVWriter writer = new CSVWriter();
 //			writer.WriteSimpleFile(linker.getSimplePattern(), file.toString());
 //			writer.WriteObjectFile(linker.getObjectPattern(), file.toString());
 //			writer.WriteMockFile(linker.getMockPattern(), linker.getLinkSet(), file.toString());
+			
+//			DetailCSVWriter dwriter = new DetailCSVWriter();
+//			dwriter.WriteSimpleFile(linker.getSimplePattern(), file.toString(), isWrite);
+//			
+//			isWrite = true;
 		}
 		
-		for(File file: files) {
-			JavaToAST jdt = new JavaToAST();
-			CompilationUnit cunit = jdt.getCompilationUnit(file);
-			String source = FileUtils.readFileToString(file);
-			Document document = new Document(source);
-			
-			MethodScanner scanner = new MethodScanner(finder);
-			cunit.accept(scanner);
-			List<InsertPosInfo> insertposlist = scanner.getInsertInfo();
-			
-			LogInserter inserter = new LogInserter(cunit);
-			inserter.RewriteFile(cunit, file, document, insertposlist);
-		}
+//		for(File file: files) {
+//			JavaToAST jdt = new JavaToAST();
+//			CompilationUnit cunit = jdt.getCompilationUnit(file);
+//			String source = FileUtils.readFileToString(file);
+//			Document document = new Document(source);
+//			
+//			MethodScanner scanner = new MethodScanner(finder);
+//			cunit.accept(scanner);
+//			List<InsertPosInfo> insertposlist = scanner.getInsertInfo();
+//			
+//			LogInserter inserter = new LogInserter(cunit);
+//			inserter.RewriteFile(cunit, file, document, insertposlist);
+//		}
 	}
 }
