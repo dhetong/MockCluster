@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.ClassInstanceCreation;
+import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jdt.core.dom.NumberLiteral;
+import org.eclipse.jdt.core.dom.StringLiteral;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
+
 import patternnodeinfo.Info;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
@@ -16,7 +23,8 @@ import patternnodeinfo.FieldObjectInfo;
 //need to consider the impact of mocking pattern
 
 public class ImplementationFinder {
-	private List<SearchKey> keylist = new ArrayList<>();
+	private List<SearchKey> keylist = new ArrayList<>();	
+	private List<SearchKeyObject> objectkeylist = new ArrayList<>();
 	
 	private boolean InList(SearchKey key) {
 		boolean flag = false;
@@ -29,6 +37,37 @@ public class ImplementationFinder {
 				flag = true;
 				break;
 			}
+		}
+		
+		return flag;
+	}
+	
+	private boolean IndexCheck(List list_0, List list_1) {		
+		if(list_0.size() != list_1.size())
+			return false;
+		for(int i = 0;i < list_0.size();i++) {
+			if(list_0.get(i) != list_1.get(i))
+				return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean InListObject(SearchKeyObject key) {
+		boolean flag = false;
+		
+		for(int index = 0;index < objectkeylist.size();index++) {
+			SearchKeyObject tmp = objectkeylist.get(index);
+			
+			String c_0 = key.getClassName();
+			String c_1 = tmp.getClassName();
+			
+			List index_0 = key.getArgIndex();
+			List index_1 = tmp.getArgIndex();
+			
+			if(c_0.equals(c_1) && IndexCheck(index_0, index_1))
+				flag = true;
+			
 		}
 		
 		return flag;
@@ -109,6 +148,21 @@ public class ImplementationFinder {
 		return flag;
 	}
 	
+	private List getSimpleIndex(List args) {
+		List<Integer> index_list = new ArrayList<>();
+		
+		for(int index = 0;index < args.size();index++) {
+			if(args.get(index) instanceof StringLiteral) {
+				index_list.add(index);
+			}
+			else if(args.get(index) instanceof NumberLiteral) {
+				index_list.add(index);
+			}
+		}
+		
+		return index_list;
+	}
+	
 	public void UpdateKeyListObject(List<LinkedList> patterns) {
 		for(int index = 0;index < patterns.size();index++) {
 			LinkedList<Info> pattern = patterns.get(index);
@@ -122,7 +176,24 @@ public class ImplementationFinder {
 				ObjectInfo objectinfo = (ObjectInfo) pattern.get(objectid);
 				if(flag == 1) {
 					//the return value is an object
-					System.out.println(objectinfo.getStmt_ast().toString());
+					VariableDeclarationStatement s = (VariableDeclarationStatement) objectinfo.getStmt_ast();
+					String cname = s.getType().toString();
+					VariableDeclarationFragment frag = (VariableDeclarationFragment) s.fragments().get(0);
+					if(frag.getInitializer() instanceof ClassInstanceCreation) {
+						ClassInstanceCreation instancecreation = (ClassInstanceCreation) frag.getInitializer();
+						List argsindex = getSimpleIndex(instancecreation.arguments());
+					
+						SearchKeyObject key = new SearchKeyObject(cname, argsindex, InitializerType.INSTANCE_CREATION);
+						if(InListObject(key) == true)
+							continue;
+						objectkeylist.add(key);
+					}
+					else if(frag.getInitializer() instanceof MethodInvocation){
+						MethodInvocation methodinvocation = (MethodInvocation) frag.getInitializer();
+					}
+					else {
+						System.out.println(s.toString());
+					}
 				}
 				else {
 					//the return value is a String
