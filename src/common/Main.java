@@ -77,6 +77,11 @@ public class Main {
 //			isWrite = true;
 		}
 		
+		
+		System.out.println(finder.getObjectKeyList().size());
+		DetailCSVWriter dcsvwriter = new DetailCSVWriter();
+		dcsvwriter.WriteObjectFile(finder.getObjectKeyList());
+		
 //		for(File file: files) {
 //			JavaToAST jdt = new JavaToAST();
 //			CompilationUnit cunit = jdt.getCompilationUnit(file);

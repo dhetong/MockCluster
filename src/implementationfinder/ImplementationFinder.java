@@ -26,6 +26,14 @@ public class ImplementationFinder {
 	private List<SearchKey> keylist = new ArrayList<>();	
 	private List<SearchKeyObject> objectkeylist = new ArrayList<>();
 	
+	public List<SearchKey> getKeyList(){
+		return keylist;
+	}
+	
+	public List<SearchKeyObject> getObjectKeyList(){
+		return objectkeylist;
+	}
+	
 	private boolean InList(SearchKey key) {
 		boolean flag = false;
 		
@@ -53,24 +61,34 @@ public class ImplementationFinder {
 		return true;
 	}
 	
-	private boolean InListObject(SearchKeyObject key) {
-		boolean flag = false;
+	private boolean IsEqualObject(SearchKeyObject key0, SearchKeyObject key1) {
+		if(key0.getInitType() != key1.getInitType())
+			return false;
+		if(!key0.getClassName().equals(key1.getClassName()))
+			return false;
 		
-		for(int index = 0;index < objectkeylist.size();index++) {
-			SearchKeyObject tmp = objectkeylist.get(index);
-			
-			String c_0 = key.getClassName();
-			String c_1 = tmp.getClassName();
-			
-			List index_0 = key.getArgIndex();
-			List index_1 = tmp.getArgIndex();
-			
-			if(c_0.equals(c_1) && IndexCheck(index_0, index_1))
-				flag = true;
-			
+		List indexlist0 = key0.getArgIndex();
+		List indexlist1 = key1.getArgIndex();
+		
+		if(!IndexCheck(indexlist0, indexlist1))
+			return false;
+		
+		if(key0.getInitType() == InitializerType.METHOD_INVOCATION) {
+			if(!key0.getMethodName().equals(key1.getMethodName()))
+				return false;
 		}
 		
-		return flag;
+		return true;
+	}
+	
+	private boolean InListObject(SearchKeyObject key) {
+		for(int index = 0;index < objectkeylist.size();index++) {
+			SearchKeyObject tmp = objectkeylist.get(index);
+			if(IsEqualObject(key, tmp))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	private String getReturnType(MockInfo mockinfo) {
@@ -119,10 +137,6 @@ public class ImplementationFinder {
 			
 			keylist.add(key);
 		}
-	}
-	
-	public List<SearchKey> getKeyList(){
-		return keylist;
 	}
 	
 	public void PrintList() {
@@ -182,23 +196,51 @@ public class ImplementationFinder {
 					if(frag.getInitializer() instanceof ClassInstanceCreation) {
 						ClassInstanceCreation instancecreation = (ClassInstanceCreation) frag.getInitializer();
 						List argsindex = getSimpleIndex(instancecreation.arguments());
+						String fieldname = objectinfo.getField();
 					
 						SearchKeyObject key = new SearchKeyObject(cname, argsindex, InitializerType.INSTANCE_CREATION);
+						key.UpdateFieldName(fieldname);
+						key.UpdateStatement(s);
 						if(InListObject(key) == true)
 							continue;
 						objectkeylist.add(key);
 					}
 					else if(frag.getInitializer() instanceof MethodInvocation){
 						MethodInvocation methodinvocation = (MethodInvocation) frag.getInitializer();
+						String mname = methodinvocation.getName().toString();
+						List argsindex = getSimpleIndex(methodinvocation.arguments());
+						String fieldname = objectinfo.getField();
+						
+						SearchKeyObject key = new SearchKeyObject(cname, mname, argsindex, InitializerType.METHOD_INVOCATION);
+						key.UpdateFieldName(fieldname);
+						key.UpdateStatement(s);
+						if(InListObject(key) == true)
+							continue;
+						objectkeylist.add(key);
 					}
 					else {
 						System.out.println(s.toString());
 					}
 				}
-				else {
+				else if(flag == 2) {
 					//the return value is a String
-					System.out.println(objectinfo.getStmt());
-					System.out.println(objectinfo.getContent());
+					MockInitInfo mockinitinfo = (MockInitInfo) pattern.get(0);
+					MockInfo mockinfo = (MockInfo) pattern.get(objectid-1);
+					
+					String classname = mockinitinfo.getClassName();
+					String methodname = mockinfo.getMethod();
+					String fieldname = mockinfo.getField();
+					String returntype = "String";
+					
+					SearchKey key = new SearchKey(classname, methodname, fieldname);
+					key.InitReturnType(returntype);
+					if(InList(key) == true)
+						continue;
+					
+					keylist.add(key);
+				}
+				else {
+					System.out.println("ERROR");
 				}
 			}
 			else {
