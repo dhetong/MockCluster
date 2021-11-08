@@ -90,50 +90,8 @@ public class DetailCSVWriter {
 		}
 	}
 	
-	private String getInitType(int type) {
-		if(type == InitializerType.INSTANCE_CREATION)
-			return "InstanceCreation";
-		else if(type == InitializerType.METHOD_INVOCATION)
-			return "MethodInvocation";
-		else
-			return "ERORR";
-	}
-	
-	private String getArgType(List args, int index) {
-		if(args.get(index) instanceof StringLiteral)
-			return "String";
-		else if(args.get(index) instanceof NumberLiteral)
-			return "Number";
-		else
-			return "ERROR";
-	}
-	
-	private String getTypeArgs(List argsindex, List args) {
-		String output = "";
-		
-		for(int i = 0;i < argsindex.size();i++) {
-			int index = (int) argsindex.get(i);
-			String tmp = getArgType(args, index);
-			output = output + tmp + "||";
-		}
-		
-		return output;
-	}
-	
-	private String getContentArgs(List argsindex, List args) {
-		String output = "";
-		
-		for(int i = 0;i < argsindex.size();i++) {
-			int index = (int) argsindex.get(i);
-			String tmp = args.get(index).toString();
-			output = output + tmp + "||";
-		}
-		
-		return output;
-	}
-	
-	public void WriteObjectFile(List<SearchKeyObject> objectkeylist) throws Exception {
-		if(objectkeylist.size() == 0)
+	public void WriteObjectFile(List<ObjectOutPutInfo> outputlist) throws Exception {
+		if(outputlist.size() == 0)
 			return;
 		
 		File objectcsv = new File("object.csv");
@@ -141,41 +99,22 @@ public class DetailCSVWriter {
 			FileWriter output = new FileWriter(objectcsv, true);
 			com.opencsv.CSVWriter writer = new com.opencsv.CSVWriter(output);
 			
-			String[] header = {"ClassName", "InitializerType", "MethodName", "ArgsType", "Arguments"};
+			String[] header = {"FieldName", "ClassName", "InitializerType", "MethodName",
+					"ArgsType", "Arguments"};
+			writer.writeNext(header);
 			
-			for(int index = 0;index < objectkeylist.size();index++) {
-				SearchKeyObject objectkey = objectkeylist.get(index);
-				String classname = objectkey.getClassName();
-				String inittype = getInitType(objectkey.getInitType());
-				String methodname = "";
-				
-				List argsindex = objectkey.getArgIndex();
-				VariableDeclarationStatement stmt = objectkey.getStatement();
-				VariableDeclarationFragment frag = (VariableDeclarationFragment) 
-						stmt.fragments().get(0);
-				String argtypeoutput = "";
-				String argcontentoutput = "";
-				if(objectkey.getInitType() == InitializerType.INSTANCE_CREATION) {
-					ClassInstanceCreation instancecreation = (ClassInstanceCreation) 
-							frag.getInitializer();
-					List args = instancecreation.arguments();
-					argtypeoutput = getTypeArgs(argsindex, args);
-					argcontentoutput = getContentArgs(argsindex, args);
-					methodname = classname;
-				}
-				else if(objectkey.getInitType() == InitializerType.METHOD_INVOCATION){
-					MethodInvocation methodinvocation = (MethodInvocation) frag.getInitializer();
-					List args = methodinvocation.arguments();
-					argtypeoutput = getTypeArgs(argsindex, args);
-					argcontentoutput = getContentArgs(argsindex, args);
-					methodname = objectkey.getMethodName();
-				}
-				else {
-					System.out.println("ERROR");
-				}
-				String[] row = {classname, inittype, methodname, argtypeoutput, argcontentoutput};
+			for(int i = 0;i < outputlist.size();i++) {
+				ObjectOutPutInfo tmp = outputlist.get(i);
+				String fieldname = tmp.getFieldName();
+				String classname = tmp.getClassName();
+				String inittype = tmp.getInitType();
+				String methodname = tmp.getMethodName();
+				String argstype = tmp.getArgsType();
+				String argscontent = tmp.getArgsContent();
+				String[] row = {fieldname, classname, inittype, methodname, argstype, argscontent};
 				writer.writeNext(row);
 			}
+			
 			writer.close();
 		}
 		catch (IOException e) {

@@ -17,6 +17,8 @@ public class SearchKeyObject {
 	
 	private VariableDeclarationStatement stmt;
 	
+	private int argsnum;
+	
 	public SearchKeyObject(String cname, List indexlist, int type) {
 		classname = cname;
 		for(int i = 0;i < indexlist.size();i++) {
@@ -80,5 +82,13 @@ public class SearchKeyObject {
 	
 	public VariableDeclarationStatement getStatement() {
 		return stmt;
+	}
+	
+	public void UploadArgsNum(int num) {
+		argsnum = num;
+	}
+	
+	public int getArgsNum() {
+		return argsnum;
 	}
 }

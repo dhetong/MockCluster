@@ -1,107 +1,14 @@
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-project/src/test/java/org/apache/cayenne/project/upgrade/DefaultUpgradeServiceTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/types/ValueObjectTypeFactoryOrderTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/types/ValueObjectTypeFactoryTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/QualifierTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/ValuesTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/DbRowOpMergerTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/operation/BaseDbRowOpTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/DefaultDataDomainFlushActionTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/ArcValuesCreationHandlerTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/access/flush/DefaultDbRowOpSorterTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/query/SelectQueryMetadataCacheKeyTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/exp/parser/EvaluatorTest.java"
-"0","Persistent lhs=mock(Persistent.class);
-when(lhs.getObjectId()).thenReturn(lhsId);
-ObjectId lhsId=ObjectId.of(""X"",""k"",3);
-","testEvaluator_PersistenttestEvaluator_PersistenttestEvaluator_Persistent","827083198219"
-"1","Persistent rhs1=mock(Persistent.class);
-when(rhs1.getObjectId()).thenReturn(rhsId1);
-ObjectId rhsId1=ObjectId.of(""X"",""k"",3);
-","testEvaluator_PersistenttestEvaluator_PersistenttestEvaluator_Persistent","849885488446"
-"2","Persistent rhs2=mock(Persistent.class);
-when(rhs2.getObjectId()).thenReturn(rhsId2);
-ObjectId rhsId2=ObjectId.of(""X"",""k"",4);
-","testEvaluator_PersistenttestEvaluator_PersistenttestEvaluator_Persistent","876588158713"
-"3","Persistent lhs=mock(Persistent.class);
-when(lhs.getObjectId()).thenReturn(lhsId);
-ObjectId lhsId=ObjectId.of(""X"",""k"",""A"");
-","testEvaluator_Persistent_StringIdtestEvaluator_Persistent_StringIdtestEvaluator_Persistent_StringId","910791569054"
-"4","Persistent rhs1=mock(Persistent.class);
-when(rhs1.getObjectId()).thenReturn(rhsId1);
-ObjectId rhsId1=ObjectId.of(""X"",""k"",""A"");
-","testEvaluator_Persistent_StringIdtestEvaluator_Persistent_StringIdtestEvaluator_Persistent_StringId","933793879283"
-"5","Persistent rhs2=mock(Persistent.class);
-when(rhs2.getObjectId()).thenReturn(rhsId2);
-ObjectId rhsId2=ObjectId.of(""X"",""k"",""B"");
-","testEvaluator_Persistent_StringIdtestEvaluator_Persistent_StringIdtestEvaluator_Persistent_StringId","960896589554"
-"6","Persistent lhs=mock(Persistent.class);
-when(lhs.getObjectId()).thenReturn(lhsId);
-Map<String,Object> lhsIdMap=new HashMap<>();
-ObjectId lhsId=ObjectId.of(""X"",lhsIdMap);
-","testEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKey","1007010119989910017"
-"7","Persistent rhs1=mock(Persistent.class);
-when(rhs1.getObjectId()).thenReturn(rhsId1);
-Map<String,Object> rhsId1Map=new HashMap<>();
-ObjectId rhsId1=ObjectId.of(""X"",rhsId1Map);
-","testEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKey","10422104721024610367"
-"8","Persistent rhs2=mock(Persistent.class);
-when(rhs2.getObjectId()).thenReturn(rhsId2);
-Map<String,Object> rhsId2Map=new HashMap<>();
-ObjectId rhsId2=ObjectId.of(""X"",rhsId2Map);
-","testEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKeytestEvaluator_Persistent_MultiKey","10822108721064510767"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-server/src/test/java/org/apache/cayenne/exp/parser/ASTListTest.java"
-"0","Persistent artist=mock(Persistent.class);
-when(artist.getObjectId()).thenReturn(objectId);
-ObjectId objectId=ObjectId.of(""Artist"",""ARTIST_ID"",1);
-","testConstructorWithCollectiontestConstructorWithCollectiontestConstructorWithCollection","153915851478"
-"1","Persistent artist=mock(Persistent.class);
-when(artist.getObjectId()).thenReturn(objectId);
-ObjectId objectId=ObjectId.of(""Artist"",""ARTIST_ID"",1);
-","testEqualstestEqualstestEquals","200120471940"
-"2","Persistent artist=mock(Persistent.class);
-when(artist.getObjectId()).thenReturn(objectId);
-ObjectId objectId=ObjectId.of(""Artist"",""ARTIST_ID"",1);
-","testHashCodetestHashCodetestHashCode","251525612454"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-dbsync/src/test/java/org/apache/cayenne/dbsync/reverse/dbimport/DefaultDbImportActionTest.java"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-lifecycle/src/test/java/org/apache/cayenne/lifecycle/id/EntityIdCoderTest.java"
-"0","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getDbEntity()).thenReturn(dbEntity);
-DbEntity dbEntity=new DbEntity(""X"");
-","testSingleIntPktestSingleIntPktestSingleIntPk","281829872620"
-"1","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getDbEntity()).thenReturn(dbEntity);
-DbEntity dbEntity=new DbEntity(""X"");
-","testSingleLongPktestSingleLongPktestSingleLongPk","354437133347"
-"2","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getDbEntity()).thenReturn(dbEntity);
-DbEntity dbEntity=new DbEntity(""X"");
-","testSingleStringPktestSingleStringPktestSingleStringPk","427444434076"
-"3","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getDbEntity()).thenReturn(dbEntity);
-DbEntity dbEntity=new DbEntity(""X"");
-","testIdEncodingtestIdEncodingtestIdEncoding","500751764809"
-"4","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getDbEntity()).thenReturn(dbEntity);
-DbEntity dbEntity=new DbEntity(""X"");
-","testMixedCompoundPktestMixedCompoundPktestMixedCompoundPk","606762365554"
-"Index","Statements","Field","AST Location","/Users/hetongdai/Desktop/Mock/cayenne/cayenne/cayenne-cgen/src/test/java/org/apache/cayenne/gen/PropertyUtilsTest.java"
-"0","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getClassName()).thenReturn(typeName);
-String typeName=""org.example.model.TargetEntity"";
-","testImportRelationshiptestImportRelationshiptestImportRelationship","389039403830"
-"1","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getClassName()).thenReturn(typeName);
-String typeName=""org.example.model.TargetEntity"";
-","toOneRelationshipDefinitiontoOneRelationshipDefinitiontoOneRelationshipDefinition","111991124911038"
-"2","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getClassName()).thenReturn(typeName);
-String typeName=""org.example.model.TargetEntity"";
-","listRelationshipDefinitionlistRelationshipDefinitionlistRelationshipDefinition","121671221712008"
-"3","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getClassName()).thenReturn(typeName);
-String typeName=""org.example.model.TargetEntity"";
-","setRelationshipDefinitionsetRelationshipDefinitionsetRelationshipDefinition","131991324913041"
-"4","ObjEntity entity=mock(ObjEntity.class);
-when(entity.getClassName()).thenReturn(typeName);
-String typeName=""org.example.model.TargetEntity"";
-","mapRelationshipDefinitionmapRelationshipDefinitionmapRelationshipDefinition","143551440514067"
+"FieldName","ClassName","InitializerType","MethodName","ArgsType","Arguments"
+"testEvaluator_Persistent","ObjectId","MethodInvocation","ObjectId","String||String||Number||","""X""||""k""||3||"
+"testEvaluator_Persistent","ObjectId","MethodInvocation","ObjectId","String||String||Number||","""X""||""k""||4||"
+"testEvaluator_Persistent_StringId","ObjectId","MethodInvocation","ObjectId","String||String||String||","""X""||""k""||""A""||"
+"testEvaluator_Persistent_StringId","ObjectId","MethodInvocation","ObjectId","String||String||String||","""X""||""k""||""B""||"
+"testEvaluator_Persistent_MultiKey","ObjectId","MethodInvocation","ObjectId","String||","""X""||"
+"testConstructorWithCollection","ObjectId","MethodInvocation","ObjectId","String||String||Number||","""Artist""||""ARTIST_ID""||1||"
+"testEquals","ObjectId","MethodInvocation","ObjectId","String||String||Number||","""Artist""||""ARTIST_ID""||1||"
+"testHashCode","ObjectId","MethodInvocation","ObjectId","String||String||Number||","""Artist""||""ARTIST_ID""||1||"
+"testSingleIntPk","DbEntity","InstanceCreation","DbEntity","String||","""X""||"
+"testSingleLongPk","DbEntity","InstanceCreation","DbEntity","String||","""X""||"
+"testSingleStringPk","DbEntity","InstanceCreation","DbEntity","String||","""X""||"
+"testIdEncoding","DbEntity","InstanceCreation","DbEntity","String||","""X""||"
+"testMixedCompoundPk","DbEntity","InstanceCreation","DbEntity","String||","""X""||"

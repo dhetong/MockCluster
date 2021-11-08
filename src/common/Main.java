@@ -19,6 +19,7 @@ import handler.MethodVisitor;
 import implementationfinder.ImplementationFinder;
 import implementationfinder.InsertPosInfo;
 import implementationfinder.MethodScanner;
+import implementationfinder.ObjectScanner;
 import output.CSVWriter;
 import output.DetailCSVWriter;
 import output.LogInserter;
@@ -77,23 +78,27 @@ public class Main {
 //			isWrite = true;
 		}
 		
+//		DetailCSVWriter dcsvwriter = new DetailCSVWriter();
+//		dcsvwriter.WriteObjectFile(finder.getObjectOutputList());
 		
-		System.out.println(finder.getObjectKeyList().size());
-		DetailCSVWriter dcsvwriter = new DetailCSVWriter();
-		dcsvwriter.WriteObjectFile(finder.getObjectKeyList());
-		
-//		for(File file: files) {
-//			JavaToAST jdt = new JavaToAST();
-//			CompilationUnit cunit = jdt.getCompilationUnit(file);
+		for(File file: files) {
+			JavaToAST jdt = new JavaToAST();
+			CompilationUnit cunit = jdt.getCompilationUnit(file);
+			
+			//For object type value
+			ObjectScanner objectscanner = new ObjectScanner(finder);
+			cunit.accept(objectscanner);
+			
+			//For simple type value
 //			String source = FileUtils.readFileToString(file);
 //			Document document = new Document(source);
 //			
 //			MethodScanner scanner = new MethodScanner(finder);
 //			cunit.accept(scanner);
-//			List<InsertPosInfo> insertposlist = scanner.getInsertInfo();
 //			
+//			List<InsertPosInfo> insertposlist = scanner.getInsertInfo();
 //			LogInserter inserter = new LogInserter(cunit);
 //			inserter.RewriteFile(cunit, file, document, insertposlist);
-//		}
+		}
 	}
 }

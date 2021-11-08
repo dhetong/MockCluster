@@ -7,10 +7,12 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.NumberLiteral;
+import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
+import output.ObjectOutPutInfo;
 import patternnodeinfo.Info;
 import patternnodeinfo.MockInfo;
 import patternnodeinfo.MockInitInfo;
@@ -26,12 +28,18 @@ public class ImplementationFinder {
 	private List<SearchKey> keylist = new ArrayList<>();	
 	private List<SearchKeyObject> objectkeylist = new ArrayList<>();
 	
+	private List<ObjectOutPutInfo> objectoutputlist = new ArrayList<>();
+	
 	public List<SearchKey> getKeyList(){
 		return keylist;
 	}
 	
 	public List<SearchKeyObject> getObjectKeyList(){
 		return objectkeylist;
+	}
+	
+	public List<ObjectOutPutInfo> getObjectOutputList(){
+		return objectoutputlist;
 	}
 	
 	private boolean InList(SearchKey key) {
@@ -177,6 +185,72 @@ public class ImplementationFinder {
 		return index_list;
 	}
 	
+	private String getInitType(int type) {
+		if(type == InitializerType.INSTANCE_CREATION)
+			return "InstanceCreation";
+		else if(type == InitializerType.METHOD_INVOCATION)
+			return "MethodInvocation";
+		else
+			return "ERORR";
+	}
+	
+	private String getArgType(List args, int index) {
+		if(args.get(index) instanceof StringLiteral)
+			return "String";
+		else if(args.get(index) instanceof NumberLiteral)
+			return "Number";
+		else
+			return "ERROR";
+	}
+	
+	private String getTypeArgs(List argsindex, List args) {
+		String output = "";
+		
+		for(int i = 0;i < argsindex.size();i++) {
+			int index = (int) argsindex.get(i);
+			String tmp = getArgType(args, index);
+			output = output + tmp + "||";
+		}
+		
+		return output;
+	}
+	
+	private String getContentArgs(List argsindex, List args) {
+		String output = "";
+		
+		for(int i = 0;i < argsindex.size();i++) {
+			int index = (int) argsindex.get(i);
+			String tmp = args.get(index).toString();
+			output = output + tmp + "||";
+		}
+		
+		return output;
+	}
+	
+	private boolean InOutputList(ObjectOutPutInfo outputinfo) {
+		boolean flag = false;
+		
+		for(int i = 0;i < objectoutputlist.size();i++) {
+			ObjectOutPutInfo tmp = objectoutputlist.get(i);
+			if(!tmp.getFieldName().equals(outputinfo.getFieldName()))
+				continue;
+			if(!tmp.getClassName().equals(outputinfo.getClassName()))
+				continue;
+			if(!tmp.getInitType().equals(outputinfo.getInitType()))
+				continue;
+			if(!tmp.getMethodName().equals(outputinfo.getMethodName()))
+				continue;
+			if(!tmp.getArgsType().equals(outputinfo.getArgsType()))
+				continue;
+			if(!tmp.getArgsContent().equals(outputinfo.getArgsContent()))
+				continue;
+			flag = true;
+			break;
+		}
+		
+		return flag;
+	}
+	
 	public void UpdateKeyListObject(List<LinkedList> patterns) {
 		for(int index = 0;index < patterns.size();index++) {
 			LinkedList<Info> pattern = patterns.get(index);
@@ -197,10 +271,19 @@ public class ImplementationFinder {
 						ClassInstanceCreation instancecreation = (ClassInstanceCreation) frag.getInitializer();
 						List argsindex = getSimpleIndex(instancecreation.arguments());
 						String fieldname = objectinfo.getField();
+						
+						String argstype = getTypeArgs(argsindex, instancecreation.arguments());
+						String argscontent = getContentArgs(argsindex, instancecreation.arguments());
+						String inittype = "InstanceCreation";
+						ObjectOutPutInfo outputinfo = new ObjectOutPutInfo(cname, inittype, 
+								cname, argstype, argscontent, fieldname);
+						if(InOutputList(outputinfo) == false)
+							objectoutputlist.add(outputinfo);
 					
 						SearchKeyObject key = new SearchKeyObject(cname, argsindex, InitializerType.INSTANCE_CREATION);
 						key.UpdateFieldName(fieldname);
 						key.UpdateStatement(s);
+						key.UploadArgsNum(instancecreation.arguments().size());
 						if(InListObject(key) == true)
 							continue;
 						objectkeylist.add(key);
@@ -211,9 +294,18 @@ public class ImplementationFinder {
 						List argsindex = getSimpleIndex(methodinvocation.arguments());
 						String fieldname = objectinfo.getField();
 						
+						String argstype = getTypeArgs(argsindex, methodinvocation.arguments());
+						String argscontent = getContentArgs(argsindex, methodinvocation.arguments());
+						String inittype = "MethodInvocation";
+						ObjectOutPutInfo outputinfo = new ObjectOutPutInfo(cname, inittype, 
+								mname, argstype, argscontent, fieldname);
+						if(InOutputList(outputinfo) == false)
+							objectoutputlist.add(outputinfo);
+						
 						SearchKeyObject key = new SearchKeyObject(cname, mname, argsindex, InitializerType.METHOD_INVOCATION);
 						key.UpdateFieldName(fieldname);
 						key.UpdateStatement(s);
+						key.UploadArgsNum(methodinvocation.arguments().size());
 						if(InListObject(key) == true)
 							continue;
 						objectkeylist.add(key);
